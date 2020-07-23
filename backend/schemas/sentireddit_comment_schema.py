@@ -1,8 +1,13 @@
 from app import ma
+from marshmallow import fields
 from models.sentireddit_comment_model import SentiRedditComment
 from schemas.base_schema import BaseSchema
+from schemas.sentiment_schema import SentimentSchema
+
 
 class SentiRedditCommentSchema(ma.SQLAlchemyAutoSchema, BaseSchema):
 
-  class Meta:
-    model = SentiRedditComment
+    sentiment = fields.Nested('SentimentSchema')
+
+    class Meta:
+        model = SentiRedditComment
