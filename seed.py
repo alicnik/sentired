@@ -32,6 +32,11 @@ with app.app_context():
         title="A post"
     )
 
+    post2 = Post(
+      reddit_id="3",
+      title="Another post", 
+    )
+
     reddit_comment1 = RedditComment(
         body='This post is fantastic',
         post=post1
@@ -63,6 +68,7 @@ with app.app_context():
     )
 
     db.session.add(post1)
+    db.session.add(post2)
     db.session.add(reddit_comment1)
     db.session.add(sentireddit_comment1)
     db.session.add(post_sentiment)
@@ -70,6 +76,9 @@ with app.app_context():
     db.session.add(sentireddit_comment_sentiment)
 
     alex.user_sentiments = [post_sentiment, reddit_comment_sentiment, sentireddit_comment_sentiment]
+    kianna.user_viewed_posts = [post1, post2]
+    kianna.user_saved_posts = [post1, post2]
     db.session.add(alex)
+    db.session.add(kianna)
 
     db.session.commit()

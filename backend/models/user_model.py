@@ -1,16 +1,17 @@
 from app import db, bcrypt
 from models.base_model import BaseModel
 from models.sentiment_model import Sentiment
+from models.join_tables import *
 from sqlalchemy.ext.hybrid import hybrid_property
 from environment.config import secret
 from datetime import *
 import jwt
 
-user_sentiments = db.Table(
-    'user_sentiments',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-    db.Column('sentiment_id', db.Integer, db.ForeignKey('sentiments.id'), primary_key=True)
-)
+# user_sentiments = db.Table(
+#     'user_sentiments',
+#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+#     db.Column('sentiment_id', db.Integer, db.ForeignKey('sentiments.id'), primary_key=True)
+# )
 
 
 class User(db.Model, BaseModel):
@@ -24,8 +25,8 @@ class User(db.Model, BaseModel):
 
     comments = db.relationship('SentiRedditComment', backref='user')
     user_sentiments = db.relationship('Sentiment', secondary=user_sentiments, backref='user')
-    # viewed_posts = db.Column()
-    # saved_posts = db.Column()
+    user_viewed_posts = db.relationship('Post', secondary=user_viewed_posts)
+    user_saved_posts = db.relationship('Post', secondary=user_saved_posts)
 
     @hybrid_property
     def password(self):

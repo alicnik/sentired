@@ -9,6 +9,6 @@ class RedditComment(db.Model, BaseModel):
 
     body = db.Column(db.Text, nullable=False)
     reddit_created_at = db.Column(db.DateTime)
-    subreddit = db.Column(db.String)
+    subreddit = db.Column(db.String(100))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     sentiment = db.relationship('Sentiment', uselist=False, backref='reddit_comment')

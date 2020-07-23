@@ -2,6 +2,7 @@ from app import ma
 from schemas.base_schema import BaseSchema
 from schemas.sentireddit_comment_schema import SentiRedditCommentSchema
 from schemas.sentiment_schema import SentimentSchema
+from schemas.post_schema import PostSchema
 from marshmallow import fields, validates_schema, ValidationError
 from models.user_model import User
 
@@ -20,6 +21,8 @@ class UserSchema(ma.SQLAlchemyAutoSchema, BaseSchema):
     password_confirmation = fields.String(required=True)
     comments = fields.Nested('SentiRedditCommentSchema', many=True)
     user_sentiments = fields.Nested('SentimentSchema', many=True)
+    user_viewed_posts = fields.Nested('PostSchema', many=True)
+    user_saved_posts = fields.Nested('PostSchema', many=True)
 
     class Meta:
         model = User
