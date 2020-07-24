@@ -3,10 +3,10 @@ from models.post_model import Post
 from schemas.post_schema import PostSchema
 from models.reddit_comment_model import RedditComment
 from models.sentiment_model import Sentiment
-from datetime import *
+from datetime import datetime
 from sentipraw import reddit
-# from sentiment_analysis import get_sentiment
 from sentiment_request import fetch_sentiment
+from models.api_calls_model import ApiCalls
 import re
 
 from lib.helpers import random_cage
@@ -82,13 +82,13 @@ def analyse_post_and_comments(reddit_id):
     post = Post.query.filter_by(reddit_id=reddit_id).first()
     if not post:
         return jsonify({'message': 'Could not return post'}), 404
+
     # Reddit post titles do not always end with a full stop. Google Natural Language API analyses by sentence
     # so we provide a full stop to ease the analysis. There is not always a body on a post, so both the title
     # and body are combined for the analysis.
     text_to_analyse = f'{post.title}, {post.body}'
-    print(text_to_analyse)
     language_sentiment = fetch_sentiment(text_to_analyse)
-    print(language_sentiment)
+
     # Since sentiment is an individual class in its own table, we instantiate the Sentiment here to attach to the post.
     # language_sentiment is an object with .score and .magnitude properties on the object that Google returns.
     sentiment_instance = Sentiment(
@@ -98,7 +98,12 @@ def analyse_post_and_comments(reddit_id):
         post_id=post.id
     )
     sentiment_instance.save()
+    calls = ApiCalls.query.get(1)
+    calls.count += 1
+    calls.save()
     for comment in post.reddit_comments:
+        if calls.count > 4500:
+            break
         language_sentiment = fetch_sentiment(comment.body)
         comment_sentiment_instance = Sentiment(
             polarity=language_sentiment['score'],
@@ -107,5 +112,7 @@ def analyse_post_and_comments(reddit_id):
             reddit_comment_id=comment.id
         )
         comment_sentiment_instance.save()
+        calls.count += 1
+        calls.save()
     post.save()
     return post_schema.jsonify(post), 200
