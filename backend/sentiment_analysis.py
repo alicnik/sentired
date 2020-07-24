@@ -6,6 +6,8 @@ from google.cloud.language import types
 # Instantiates a client
 client = language.LanguageServiceClient()
 
+text1 = "I love this"
+
 
 def get_sentiment(text):
     print('Line 11', text, 'type: ', type(text))
@@ -14,3 +16,6 @@ def get_sentiment(text):
     sentiment = client.analyze_sentiment(document=document).document_sentiment
     print('line 14', sentiment)
     return sentiment
+
+
+get_sentiment(text1)

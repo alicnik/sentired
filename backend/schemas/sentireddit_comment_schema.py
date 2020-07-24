@@ -11,3 +11,4 @@ class SentiRedditCommentSchema(ma.SQLAlchemyAutoSchema, BaseSchema):
 
     class Meta:
         model = SentiRedditComment
+        load_instance = True
