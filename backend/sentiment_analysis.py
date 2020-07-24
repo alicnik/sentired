@@ -2,7 +2,8 @@
 from google.cloud import language
 from google.cloud.language import enums
 from google.cloud.language import types
-
+import os
+print(os.environ)
 # Instantiates a client
 client = language.LanguageServiceClient()
 

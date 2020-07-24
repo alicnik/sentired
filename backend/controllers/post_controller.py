@@ -5,11 +5,12 @@ from models.reddit_comment_model import RedditComment
 from models.sentiment_model import Sentiment
 from datetime import *
 from sentipraw import reddit
-from sentiment_analysis import get_sentiment
+# from sentiment_analysis import get_sentiment
+from sentiment_request import fetch_sentiment
 import re
 
 from lib.helpers import random_cage
-print(get_sentiment)
+
 # import logging
 
 # handler = logging.StreamHandler()
@@ -79,35 +80,30 @@ def get_one(reddit_id):
 @router.route('/posts/<reddit_id>/sentiment', methods=['GET'])
 def analyse_post_and_comments(reddit_id):
     post = Post.query.filter_by(reddit_id=reddit_id).first()
-    print('81', post)
     if not post:
-        print('84')
-        return jsonify({ 'message': 'Could not return post'}), 404
+        return jsonify({'message': 'Could not return post'}), 404
     # Reddit post titles do not always end with a full stop. Google Natural Language API analyses by sentence
     # so we provide a full stop to ease the analysis. There is not always a body on a post, so both the title
     # and body are combined for the analysis.
-    print('89')
     text_to_analyse = f'{post.title}, {post.body}'
     print(text_to_analyse)
-    language_sentiment = get_sentiment(text_to_analyse)
+    language_sentiment = fetch_sentiment(text_to_analyse)
     print(language_sentiment)
     # Since sentiment is an individual class in its own table, we instantiate the Sentiment here to attach to the post.
     # language_sentiment is an object with .score and .magnitude properties on the object that Google returns.
-    print('95')
     sentiment_instance = Sentiment(
-        polarity=language_sentiment.score,
-        magnitude=language_sentiment.magnitude,
-        score=(language_sentiment.score * language_sentiment.magnitude),
+        polarity=language_sentiment['score'],
+        magnitude=language_sentiment['magnitude'],
+        score=(language_sentiment['score'] * language_sentiment['magnitude']),
         post_id=post.id
     )
-    print('101')
     sentiment_instance.save()
     for comment in post.reddit_comments:
-        language_sentiment = get_sentiment(comment.body)
+        language_sentiment = fetch_sentiment(comment.body)
         comment_sentiment_instance = Sentiment(
-            polarity=language_sentiment.score,
-            magnitude=language_sentiment.magnitude,
-            score=(language_sentiment.score * language_sentiment.magnitude),
+            polarity=language_sentiment['score'],
+            magnitude=language_sentiment['magnitude'],
+            score=(language_sentiment['score'] * language_sentiment['magnitude']),
             reddit_comment_id=comment.id
         )
         comment_sentiment_instance.save()
