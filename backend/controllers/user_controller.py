@@ -29,3 +29,5 @@ def login():
     return jsonify({ 'message': 'Incorrect password'}), 401
   token = user.generate_token()
   return jsonify({ 'token': token, 'message': 'Welcome back!'})
+
+#attempting to add routes back
