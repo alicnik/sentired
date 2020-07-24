@@ -4,8 +4,6 @@ from google.cloud.language import enums
 from google.cloud.language import types
 import os
 print(os.environ)
-del os.environ['COMMAND_MODE']
-print(os.environ)
 # Instantiates a client
 client = language.LanguageServiceClient()
 
