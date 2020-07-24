@@ -12,3 +12,5 @@ class RedditComment(db.Model, BaseModel):
     subreddit = db.Column(db.String(100))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     sentiment = db.relationship('Sentiment', uselist=False, backref='reddit_comment')
+    reddit_author = db.Column(db.String(120), nullable=True)
+    reddit_author_avatar = db.Column(db.String(120), nullable=True)
