@@ -15,4 +15,4 @@ def get_sentiment(text):
     print(sentiment)
     return sentiment
 
-get_sentiment(text1)
+print(get_sentiment(text1))
