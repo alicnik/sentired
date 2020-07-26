@@ -15,7 +15,11 @@ def index():
     users = User.query.all()
     return user_schema.jsonify(users, many=True), 200
 
-
+@router.route('/users/<int:id>', methods=['GET'])
+def get_user(id):
+  user = User.query.get(id)
+  return user_schema.jsonify(user), 200
+    
 @router.route('/register', methods=['POST'])
 def register():
     user = user_schema.load(request.get_json())
