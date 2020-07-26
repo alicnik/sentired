@@ -2,6 +2,8 @@ import requests
 import json
 import os
 
+from models.api_calls_model import ApiCalls
+
 api_key = os.environ['GOOGLE_API_KEY']
 
 
@@ -17,4 +19,8 @@ def fetch_sentiment(text):
     }
     response = requests.post(url, json=body)
     sentiment = json.loads(response.text)
+    calls = ApiCalls.query.get(1)
+    calls.count += 1
+    calls.save()
+    print(sentiment['documentSentiment'])
     return sentiment['documentSentiment']

@@ -8,7 +8,12 @@ class SentiRedditComment(db.Model, BaseModel):
     __tablename__ = 'sentireddit_comments'
 
     body = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id', ondelete='CASCADE'))
 
-    sentiment = db.relationship('Sentiment', uselist=False, backref='sentireddit_comment')
+    sentiment = db.relationship(
+        'Sentiment',
+        uselist=False,
+        backref='sentireddit_comment',
+        passive_deletes=True
+    )

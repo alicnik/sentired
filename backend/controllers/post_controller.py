@@ -35,6 +35,9 @@ def index():
 @router.route('/posts/<reddit_id>', methods=['GET'])
 def get_one(reddit_id):
     post = Post.query.filter_by(reddit_id=reddit_id).first()
+    # First, check to see whether the article is already in our db. If not, we make a call to the reddit API using an endpoint that returns both the post and any comments.
+    # We instantiate the post in our db then use regex logic to find appropriate media for the post (i.e. jpg/png/gif/video) and update the model accordingly.
+    # Then we cycle through the posts comments, instantiating each one as a model on our db and appending the comment to the post in our db.
     if not post:
         submission = reddit.request('GET', f'https://oauth.reddit.com/comments/{reddit_id}', {'limit': 3})
         data = submission[0]['data']['children'][0]['data']
@@ -86,7 +89,7 @@ def analyse_post_and_comments(reddit_id):
     # Reddit post titles do not always end with a full stop. Google Natural Language API analyses by sentence
     # so we provide a full stop to ease the analysis. There is not always a body on a post, so both the title
     # and body are combined for the analysis.
-    text_to_analyse = f'{post.title}, {post.body}'
+    text_to_analyse = f'{post.title}. {post.body}'
     language_sentiment = fetch_sentiment(text_to_analyse)
 
     # Since sentiment is an individual class in its own table, we instantiate the Sentiment here to attach to the post.
@@ -99,8 +102,6 @@ def analyse_post_and_comments(reddit_id):
     )
     sentiment_instance.save()
     calls = ApiCalls.query.get(1)
-    calls.count += 1
-    calls.save()
     for comment in post.reddit_comments:
         if calls.count > 4500:
             break
@@ -112,7 +113,5 @@ def analyse_post_and_comments(reddit_id):
             reddit_comment_id=comment.id
         )
         comment_sentiment_instance.save()
-        calls.count += 1
-        calls.save()
     post.save()
     return post_schema.jsonify(post), 200

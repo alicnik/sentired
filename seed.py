@@ -24,7 +24,7 @@ with app.app_context():
         password="alicnik"
     )
 
-    calls = ApiCalls(count=1)
+    calls = ApiCalls(count=0)
 
     db.session.add(calls)
     db.session.add(kianna)
