@@ -48,6 +48,8 @@ def edit_comment(comment_id, reddit_id):
     comment = sentireddit_comment_schema.load(request.get_json(), instance=existing_comment, partial=True)
     if comment.user != g.current_user:
         return jsonify({'message': "You can't edit another user's comment"}), 401
+    # Remove existing sentiment so that re-analysed sentiment attaches to the updated comment. Existing sentiment persists so that users who have already seen the comment continue to have that relationship.
+    comment.sentiment = None
     language_sentiment = fetch_sentiment(comment.body)
     sentiment_instance = Sentiment(
         polarity=language_sentiment['score'],

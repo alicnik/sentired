@@ -15,8 +15,11 @@ class Sentiment(db.Model, BaseModel):
 
     # ? Here we constrain the following columns to only contain the id of the post/comment to which the sentiment refers.
     # ? On the respective tables, we define a sentiment column which links back to the sentiment model.
+    # ? Deletion of sentireddit_comments should not delete the sentiment as users may have already interacted with the comment
+    # ? and therefore the sentiment, a relationship which should persist for accurate calculation of the user's aggregate sentiment.
+    # ? Accordingly, ondelete='SET NULL' is set.
 
-    sentireddit_comment_id = db.Column(db.Integer, db.ForeignKey('sentireddit_comments.id', ondelete='CASCADE'))
+    sentireddit_comment_id = db.Column(db.Integer, db.ForeignKey('sentireddit_comments.id', ondelete='SET NULL'))
     reddit_comment_id = db.Column(db.Integer, db.ForeignKey('reddit_comments.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 

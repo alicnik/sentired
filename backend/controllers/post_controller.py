@@ -1,12 +1,15 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, g
 from models.post_model import Post
 from schemas.post_schema import PostSchema
 from models.reddit_comment_model import RedditComment
 from models.sentiment_model import Sentiment
+from models.user_model import User
 from datetime import datetime
 from sentipraw import reddit
 from sentiment_request import fetch_sentiment
 from models.api_calls_model import ApiCalls
+from lib.secure_route import secure_route
+from lib.helpers import calculate_user_aggregate_sentiment
 import re
 
 from lib.helpers import random_cage
@@ -33,8 +36,10 @@ def index():
 
 
 @router.route('/posts/<reddit_id>', methods=['GET'])
+@secure_route
 def get_one(reddit_id):
     post = Post.query.filter_by(reddit_id=reddit_id).first()
+    user = User.query.get(g.current_user.id)
     # First, check to see whether the article is already in our db. If not, we make a call to the reddit API using an endpoint that returns both the post and any comments.
     # We instantiate the post in our db then use regex logic to find appropriate media for the post (i.e. jpg/png/gif/video) and update the model accordingly.
     # Then we cycle through the posts comments, instantiating each one as a model on our db and appending the comment to the post in our db.
@@ -71,7 +76,16 @@ def get_one(reddit_id):
             new_reddit_comment.save()
             new_post.reddit_comments.append(new_reddit_comment)
         new_post.save()
+        print('Line 78', new_post)
+        user.viewed_posts.append(new_post)
+        user.save()
         return post_schema.jsonify(new_post)
+    user.viewed_posts.append(post)
+    if post.sentireddit_comments:
+        for comment in post.sentireddit_comments:
+            user.user_sentiments.append(comment.sentiment)
+    calculate_user_aggregate_sentiment(user)
+    user.save()
     return post_schema.jsonify(post), 200
 
     # print(post.__doc__)
@@ -81,8 +95,10 @@ def get_one(reddit_id):
 
 
 @router.route('/posts/<reddit_id>/sentiment', methods=['GET'])
+@secure_route
 def analyse_post_and_comments(reddit_id):
     post = Post.query.filter_by(reddit_id=reddit_id).first()
+    user = User.query.get(g.current_user.id)
     if not post:
         return jsonify({'message': 'Could not return post'}), 404
 
@@ -101,8 +117,9 @@ def analyse_post_and_comments(reddit_id):
         post_id=post.id
     )
     sentiment_instance.save()
-    calls = ApiCalls.query.get(1)
+    user.user_sentiments.append(sentiment_instance)
     for comment in post.reddit_comments:
+        calls = ApiCalls.query.get(1)
         if calls.count > 4500:
             break
         language_sentiment = fetch_sentiment(comment.body)
@@ -113,5 +130,8 @@ def analyse_post_and_comments(reddit_id):
             reddit_comment_id=comment.id
         )
         comment_sentiment_instance.save()
+        user.user_sentiments.append(comment_sentiment_instance)
+    calculate_user_aggregate_sentiment(user)
+    user.save()
     post.save()
     return post_schema.jsonify(post), 200
