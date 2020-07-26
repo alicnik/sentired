@@ -3,10 +3,10 @@ from models.post_model import Post
 from schemas.post_schema import PostSchema
 from models.reddit_comment_model import RedditComment
 from models.sentiment_model import Sentiment
-from datetime import *
+from datetime import datetime
 from sentipraw import reddit
-# from sentiment_analysis import get_sentiment
 from sentiment_request import fetch_sentiment
+from models.api_calls_model import ApiCalls
 import re
 
 from lib.helpers import random_cage
@@ -35,6 +35,9 @@ def index():
 @router.route('/posts/<reddit_id>', methods=['GET'])
 def get_one(reddit_id):
     post = Post.query.filter_by(reddit_id=reddit_id).first()
+    # First, check to see whether the article is already in our db. If not, we make a call to the reddit API using an endpoint that returns both the post and any comments.
+    # We instantiate the post in our db then use regex logic to find appropriate media for the post (i.e. jpg/png/gif/video) and update the model accordingly.
+    # Then we cycle through the posts comments, instantiating each one as a model on our db and appending the comment to the post in our db.
     if not post:
         submission = reddit.request('GET', f'https://oauth.reddit.com/comments/{reddit_id}', {'limit': 3})
         data = submission[0]['data']['children'][0]['data']
@@ -82,13 +85,13 @@ def analyse_post_and_comments(reddit_id):
     post = Post.query.filter_by(reddit_id=reddit_id).first()
     if not post:
         return jsonify({'message': 'Could not return post'}), 404
+
     # Reddit post titles do not always end with a full stop. Google Natural Language API analyses by sentence
     # so we provide a full stop to ease the analysis. There is not always a body on a post, so both the title
     # and body are combined for the analysis.
-    text_to_analyse = f'{post.title}, {post.body}'
-    print(text_to_analyse)
+    text_to_analyse = f'{post.title}. {post.body}'
     language_sentiment = fetch_sentiment(text_to_analyse)
-    print(language_sentiment)
+
     # Since sentiment is an individual class in its own table, we instantiate the Sentiment here to attach to the post.
     # language_sentiment is an object with .score and .magnitude properties on the object that Google returns.
     sentiment_instance = Sentiment(
@@ -98,7 +101,10 @@ def analyse_post_and_comments(reddit_id):
         post_id=post.id
     )
     sentiment_instance.save()
+    calls = ApiCalls.query.get(1)
     for comment in post.reddit_comments:
+        if calls.count > 4500:
+            break
         language_sentiment = fetch_sentiment(comment.body)
         comment_sentiment_instance = Sentiment(
             polarity=language_sentiment['score'],

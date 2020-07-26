@@ -13,13 +13,8 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 bcrypt = Bcrypt(app)
 
-from controllers import user_controller, post_controller
+from controllers import user_controller, post_controller, sentireddit_comment_controller
 
 app.register_blueprint(user_controller.router, url_prefix="/api")
 app.register_blueprint(post_controller.router, url_prefix="/api")
-
-
-
-
-
-
+app.register_blueprint(sentireddit_comment_controller.router, url_prefix="/api")

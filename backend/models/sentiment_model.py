@@ -16,7 +16,7 @@ class Sentiment(db.Model, BaseModel):
     # ? Here we constrain the following columns to only contain the id of the post/comment to which the sentiment refers.
     # ? On the respective tables, we define a sentiment column which links back to the sentiment model.
 
-    sentireddit_comment_id = db.Column(db.Integer, db.ForeignKey('sentireddit_comments.id'))
+    sentireddit_comment_id = db.Column(db.Integer, db.ForeignKey('sentireddit_comments.id', ondelete='CASCADE'))
     reddit_comment_id = db.Column(db.Integer, db.ForeignKey('reddit_comments.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 

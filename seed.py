@@ -6,6 +6,7 @@ from models.post_model import Post
 from models.reddit_comment_model import RedditComment
 from models.sentireddit_comment_model import SentiRedditComment
 from models.sentiment_model import Sentiment
+from models.api_calls_model import ApiCalls
 
 with app.app_context():
     db.drop_all()
@@ -23,6 +24,9 @@ with app.app_context():
         password="alicnik"
     )
 
+    calls = ApiCalls(count=0)
+
+    db.session.add(calls)
     db.session.add(kianna)
     db.session.add(alex)
     db.session.commit()
@@ -33,8 +37,8 @@ with app.app_context():
     )
 
     post2 = Post(
-      reddit_id="3",
-      title="Another post", 
+        reddit_id="3",
+        title="Another post",
     )
 
     reddit_comment1 = RedditComment(
