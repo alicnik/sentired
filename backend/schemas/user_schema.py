@@ -21,8 +21,8 @@ class UserSchema(ma.SQLAlchemyAutoSchema, BaseSchema):
     password_confirmation = fields.String(required=True)
     comments = fields.Nested('SentiRedditCommentSchema', many=True)
     user_sentiments = fields.Nested('SentimentSchema', many=True)
-    user_viewed_posts = fields.Nested('PostSchema', many=True)
-    user_saved_posts = fields.Nested('PostSchema', many=True)
+    viewed_posts = fields.Nested('PostSchema', many=True)
+    saved_posts = fields.Nested('PostSchema', many=True)
 
     class Meta:
         model = User

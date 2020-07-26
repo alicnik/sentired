@@ -80,8 +80,8 @@ with app.app_context():
     db.session.add(sentireddit_comment_sentiment)
 
     alex.user_sentiments = [post_sentiment, reddit_comment_sentiment, sentireddit_comment_sentiment]
-    kianna.user_viewed_posts = [post1, post2]
-    kianna.user_saved_posts = [post1, post2]
+    kianna.viewed_posts = [post1, post2]
+    kianna.saved_posts = [post1, post2]
     db.session.add(alex)
     db.session.add(kianna)
 

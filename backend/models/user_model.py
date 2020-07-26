@@ -20,13 +20,14 @@ class User(db.Model, BaseModel):
     username = db.Column(db.String(20), nullable=False, unique=True)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password_hash = db.Column(db.String(128), nullable=True)
-    aggregate_sentiment = db.Column(db.Float)
+    # Sentiment scores will range from -inf to +inf, so default of 0 is given to all users upon creation
+    aggregate_sentiment = db.Column(db.Float, default=0)
     last_logged_in = db.Column(db.DateTime, nullable=True, default=datetime.utcnow())
 
     comments = db.relationship('SentiRedditComment', backref='user')
     user_sentiments = db.relationship('Sentiment', secondary=user_sentiments, backref='user')
-    user_viewed_posts = db.relationship('Post', secondary=user_viewed_posts)
-    user_saved_posts = db.relationship('Post', secondary=user_saved_posts)
+    viewed_posts = db.relationship('Post', secondary=user_viewed_posts)
+    saved_posts = db.relationship('Post', secondary=user_saved_posts)
 
     @hybrid_property
     def password(self):
