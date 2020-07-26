@@ -8,8 +8,8 @@ class SentiRedditComment(db.Model, BaseModel):
     __tablename__ = 'sentireddit_comments'
 
     body = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id', ondelete='CASCADE'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
     sentiment = db.relationship(
         'Sentiment',
