@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify, g
 from models.user_model import User
 from schemas.user_schema import UserSchema
 from datetime import datetime
+from sqlalchemy.exc import IntegrityError
+from marshmallow import ValidationError
 # from app import db
 # from lib.secure_route import secure_route
 
@@ -15,14 +17,19 @@ def index():
     users = User.query.all()
     return user_schema.jsonify(users, many=True), 200
 
+
 @router.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
-  user = User.query.get(id)
-  return user_schema.jsonify(user), 200
-    
+    user = User.query.get(id)
+    return user_schema.jsonify(user), 200
+
+
 @router.route('/register', methods=['POST'])
 def register():
-    user = user_schema.load(request.get_json())
+    try:
+        user = user_schema.load(request.get_json())
+    except ValidationError as err:
+        return {'errors': err.messages}, 400
     user.save()
     return user_schema.jsonify(user)
 

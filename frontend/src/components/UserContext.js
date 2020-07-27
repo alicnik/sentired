@@ -15,7 +15,7 @@ export const UserProvider = ({ children }) => {
 
   })
 
-  // Will be called anytime the user's logged in status changes.
+  // Will be called any time the user's logged in status changes.
 
   useEffect(() => {
     if (!user.isLoggedIn) return
