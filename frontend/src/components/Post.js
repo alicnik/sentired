@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import RedditPostEmbedded from './RedditPostEmbedded'
 import RedditComment from './RedditComment'
+import SentiRedditComment from './SentiRedditComment'
 
 
 const Post = () => {
@@ -47,6 +48,7 @@ const Post = () => {
         {postWithComments.reddit_comments.map((comment, i) => <RedditComment key={i} comment={comment} />)}
       </section>
       <section className="sentireddit-comments">
+        {postWithComments.sentireddit_comments.map((comment, i) => <SentiRedditComment key={i} comment={comment} />)}
       
       </section>
     </main>

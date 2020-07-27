@@ -35,6 +35,7 @@ const Login = () => {
         history.push('/home')
       })
       .catch(err => {
+        console.log(err.response)
         Object.entries(err.response.data.errors).forEach(([errorField, errorMessage]) => {
           setError(errorField, { message: errorMessage })
         })

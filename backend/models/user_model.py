@@ -6,6 +6,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from environment.config import secret
 from datetime import *
 import jwt
+from lib.helpers import random_cage
 
 # user_sentiments = db.Table(
 #     'user_sentiments',
@@ -18,6 +19,7 @@ class User(db.Model, BaseModel):
     __tablename__ = 'users'
 
     username = db.Column(db.String(20), nullable=False, unique=True)
+    avatar = db.Column(db.Text, nullable=True, default=(random_cage()))
     email = db.Column(db.String(128), nullable=False, unique=True)
     password_hash = db.Column(db.String(128), nullable=True)
     # Sentiment scores will range from -inf to +inf, so default of 0 is given to all users upon creation
