@@ -76,7 +76,6 @@ def get_one(reddit_id):
             new_reddit_comment.save()
             new_post.reddit_comments.append(new_reddit_comment)
         new_post.save()
-        print('Line 78', new_post)
         user.viewed_posts.append(new_post)
         user.save()
         return post_schema.jsonify(new_post)

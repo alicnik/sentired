@@ -1,14 +1,16 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import RedditPostEmbedded from './RedditPostEmbedded'
 import RedditComment from './RedditComment'
 import SentiRedditComment from './SentiRedditComment'
+import { UserContext } from './UserContext'
 
 
 const Post = () => {
 
   const { pathname } = useLocation()
+  const { updateUser } = useContext(UserContext)
   const [postWithComments, setPostWithComments] = useState([])
   const redditId = pathname.match(/posts\/(\w+)$/)[1]
   const token = localStorage.getItem('token')
@@ -27,6 +29,7 @@ const Post = () => {
             return initialResponse
           })
           .catch(err => console.log(err))
+        return initialResponse
       })
       .then(initialResponse => {
         if (initialResponse.data.sentiment && initialResponse.data.reddit_comments.every(comment => comment.sentiment)) return
@@ -34,8 +37,9 @@ const Post = () => {
           .then(sentimentResponse => setPostWithComments(sentimentResponse.data))
           .catch(err => console.log(err))
       })
+      .then(() => updateUser())
       .catch(err => console.log(err))
-  }, [])
+  }, [redditId, token])
 
   if (postWithComments.length === 0) return null
 
@@ -49,7 +53,6 @@ const Post = () => {
       </section>
       <section className="sentireddit-comments">
         {postWithComments.sentireddit_comments.map((comment, i) => <SentiRedditComment key={i} comment={comment} />)}
-      
       </section>
     </main>
   )

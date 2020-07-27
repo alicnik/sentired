@@ -47,8 +47,20 @@ export const UserProvider = ({ children }) => {
     })
   }
 
+  function updateUser() {
+    if (!user.isLoggedIn) return
+    axios.get(`/api/users/${user.id}`)
+      .then(res => {
+        setUser({
+          ...res.data,
+          isLoggedIn: true
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, updateUser }}>
       {children}
     </UserContext.Provider>
   )
