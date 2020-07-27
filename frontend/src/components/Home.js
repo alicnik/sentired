@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import SearchIcon from '@material-ui/icons/Search'
 import IconButton from '@material-ui/core/IconButton'
-import RedditPost from './RedditPost'
+import RedditPostCard from './RedditPostCard'
 
 import axios from 'axios'
 
@@ -44,7 +44,7 @@ const Home = () => {
           </InputAdornment>
       }}
     />
-    {redditPosts.map((post, i) => <RedditPost key={i} post={post.data} />)}
+    {redditPosts.map((post, i) => <RedditPostCard key={i} post={post.data} />)}
   </main>
 
 }

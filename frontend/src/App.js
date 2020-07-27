@@ -10,6 +10,7 @@ import Account from './components/Account'
 import NavBar from './components/NavBar'
 import { UserProvider } from './components/UserContext'
 import { ApiProvider } from './components/ApiContext'
+import Post from './components/Post'
 
 const App = () => {
   return <HashRouter>
@@ -22,7 +23,7 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/account" component={Account} />
-          {/* <Route exact path="/" component={Welcome} /> */}
+          <Route path="/posts/:redditId" component={Post} />         {/* <Route exact path="/" component={Welcome} /> */}
         </Switch>
       </ApiProvider>
     </UserProvider>

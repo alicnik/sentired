@@ -54,7 +54,7 @@ def get_one(reddit_id):
             reddit_author=data['author'],
             reddit_created_at=datetime.fromtimestamp(data['created_utc'])
         )
-        if re.match('.(png|gif|jpe?g)$', data['url']):
+        if re.match('.(png|gif|jpe?g|svg)$', data['url']):
             new_post.media = data['url']
         elif 'media' in data and data['media'] and 'reddit_video' in data['media']:
             new_post.media = data['media']['reddit_video']['fallback_url']

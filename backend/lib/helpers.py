@@ -19,4 +19,4 @@ def calculate_user_aggregate_sentiment(user):
             return a.score + b.score
         else:
             return a + b.score
-    user.aggregate_sentiment = reduce(sentiment_sum, user.user_sentiments)
+    user.aggregate_sentiment = reduce(sentiment_sum, user.user_sentiments, 0)

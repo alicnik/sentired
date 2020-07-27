@@ -11,7 +11,6 @@ export const ApiProvider = ({ children }) => {
   const [redditToken, setRedditToken] = useState('')
 
   function refreshToken() {
-
     axios.post('https://www.reddit.com/api/v1/access_token', queryString.stringify({ 'grant_type': 'client_credentials' }), {
       auth: {
         username: process.env.REDDIT_USERNAME,
