@@ -46,6 +46,6 @@ def login():
     # Update user's last logged in property to current date and time.
     user.last_logged_in = datetime.utcnow()
     user.save()
-    return jsonify({'token': token, 'message': 'Welcome back!'})
+    return jsonify({'token': token, 'id': user.id,  'username': user.username, 'aggregate_sentiment': user.aggregate_sentiment})
 
 # attempting to add routes back
