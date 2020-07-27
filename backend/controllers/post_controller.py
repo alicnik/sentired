@@ -94,6 +94,18 @@ def get_one(reddit_id):
     # # pprint.pprint(vars(post))
 
 
+@router.route('/posts/<reddit_id>/avatars', methods=['GET'])
+@secure_route
+def get_redditor_avatars(reddit_id):
+    post = Post.query.filter_by(reddit_id=reddit_id).first()
+    post.reddit_author_avatar = reddit.redditor(name=post.reddit_author).icon_img
+    for comment in post.reddit_comments:
+        comment.reddit_author_avatar = reddit.redditor(name=comment.reddit_author).icon_img
+        comment.save()
+    post.save()
+    return post_schema.jsonify(post), 200
+
+
 @router.route('/posts/<reddit_id>/sentiment', methods=['GET'])
 @secure_route
 def analyse_post_and_comments(reddit_id):
@@ -122,6 +134,8 @@ def analyse_post_and_comments(reddit_id):
         calls = ApiCalls.query.get(1)
         if calls.count > 4500:
             break
+        if comment.sentiment:
+            continue
         language_sentiment = fetch_sentiment(comment.body)
         comment_sentiment_instance = Sentiment(
             polarity=language_sentiment['score'],

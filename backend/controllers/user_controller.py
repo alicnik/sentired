@@ -44,8 +44,8 @@ def login():
         return jsonify({'message': 'Incorrect password'}), 401
     token = user.generate_token()
     # Update user's last logged in property to current date and time.
-    user.last_logged_in = datetime.utcnow()
+    user.last_logged_in = datetime.now()
     user.save()
-    return jsonify({'token': token, 'id': user.id,  'username': user.username, 'aggregate_sentiment': user.aggregate_sentiment})
+    return jsonify({'token': token, 'id': user.id, 'username': user.username, 'aggregate_sentiment': user.aggregate_sentiment})
 
 # attempting to add routes back

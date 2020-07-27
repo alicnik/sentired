@@ -22,7 +22,7 @@ class User(db.Model, BaseModel):
     password_hash = db.Column(db.String(128), nullable=True)
     # Sentiment scores will range from -inf to +inf, so default of 0 is given to all users upon creation
     aggregate_sentiment = db.Column(db.Float, default=0)
-    last_logged_in = db.Column(db.DateTime, nullable=True, default=datetime.utcnow())
+    last_logged_in = db.Column(db.DateTime, nullable=True, default=datetime.now())
 
     comments = db.relationship('SentiRedditComment', backref='user')
     user_sentiments = db.relationship('Sentiment', secondary=user_sentiments, backref='user')
@@ -42,8 +42,8 @@ class User(db.Model, BaseModel):
 
     def generate_token(self):
         payload = {
-            'exp': datetime.utcnow() + timedelta(days=1),
-            'iat': datetime.utcnow(),
+            'exp': datetime.now() + timedelta(days=1),
+            'iat': datetime.now(),
             'sub': self.id
         }
         token = jwt.encode(payload, secret, 'HS256').decode('utf-8')

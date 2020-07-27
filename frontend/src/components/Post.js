@@ -14,7 +14,25 @@ const Post = () => {
 
   useEffect(() => {
     axios.get(`/api/posts/${redditId}`, { headers: { 'Authorization': `Bearer ${token}` } })
-      .then(res => setPostWithComments(res.data))
+      .then(initialResponse => {
+        setPostWithComments(initialResponse.data)
+        return initialResponse
+      })
+      .then(initialResponse => {
+        if (initialResponse.data.reddit_author_avatar && initialResponse.data.reddit_comments.every(comment => comment.reddit_author_avatar)) return initialResponse
+        axios.get(`/api/posts/${redditId}/avatars`, { headers: { 'Authorization': `Bearer ${token}` } })
+          .then(avatarResponse => {
+            setPostWithComments(avatarResponse.data)
+            return initialResponse
+          })
+          .catch(err => console.log(err))
+      })
+      .then(initialResponse => {
+        if (initialResponse.data.sentiment && initialResponse.data.reddit_comments.every(comment => comment.sentiment)) return
+        axios.get(`api/posts/${redditId}/sentiment`, { headers: { 'Authorization': `Bearer ${token}` } })
+          .then(sentimentResponse => setPostWithComments(sentimentResponse.data))
+          .catch(err => console.log(err))
+      })
       .catch(err => console.log(err))
   }, [])
 
