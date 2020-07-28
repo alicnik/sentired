@@ -11,6 +11,7 @@ import NavBar from './components/NavBar'
 import { UserProvider } from './components/UserContext'
 import { ApiProvider } from './components/ApiContext'
 import Post from './components/Post'
+import GlobalFonts from './fonts/fonts'
 
 const App = () => {
   return <HashRouter>
