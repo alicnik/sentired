@@ -17,6 +17,7 @@ const App = () => {
   return <HashRouter>
     <UserProvider>
       <ApiProvider>
+        <GlobalFonts />
         <NavBar />
         <Switch>
           <Route exact path="/" component={Welcome} />

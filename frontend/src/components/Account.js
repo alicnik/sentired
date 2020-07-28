@@ -31,6 +31,10 @@ const Account = () => {
     width: 30vw;
   `
 
+  const H2 = styled.h2`
+    font-family: 'Comic Sans', sans-serif;
+  `
+
   return (
     <main>
       <Image src={emojis[user.emotion]} alt={user.emotion}/>
@@ -49,9 +53,9 @@ const Account = () => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <h2>
+        <H2>
         Sentiment Score
-        </h2>
+        </H2>
       </Modal>
     </main>
   )
