@@ -38,14 +38,26 @@ def register():
 def login():
     data = request.get_json()
     user = User.query.filter_by(email=data['email']).first()
+    # Error handling structure to echo structure of marshmallow's validation error response,
+    # facilitating display of errors on front end to user.
     if not user:
-        return jsonify({'message': 'User not found'}), 404
+        return jsonify({'errors': {
+            'email': 'User not found'
+        }}), 404
     if not user.validate_password(data['password']):
-        return jsonify({'message': 'Incorrect password'}), 401
+        return jsonify({'errors': {
+            'password': 'Incorrect password'
+        }}), 401
     token = user.generate_token()
     # Update user's last logged in property to current date and time.
     user.last_logged_in = datetime.now()
     user.save()
-    return jsonify({'token': token, 'id': user.id, 'username': user.username, 'aggregate_sentiment': user.aggregate_sentiment})
+    return jsonify({
+        'token': token,
+        'id': user.id,
+        'username': user.username,
+        'aggregate_sentiment': user.aggregate_sentiment,
+        'emotion': user.emotion
+    })
 
 # attempting to add routes back

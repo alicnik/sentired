@@ -15,13 +15,13 @@ with app.app_context():
     kianna = User(
         username="kianna",
         email="kianna@kianna.com",
-        password="kianna"
+        password="Kianna123"
     )
 
     alex = User(
         username="alicnik",
-        email="alicnik@alicnik.com",
-        password="alicnik"
+        email="alicnik@hotmail.com",
+        password="Alicnik123"
     )
 
     calls = ApiCalls(count=0)
@@ -52,34 +52,34 @@ with app.app_context():
         post=post1
     )
 
-    post_sentiment = Sentiment(
-        polarity=0.3,
-        magnitude=4.2,
-        score=(4.2 * 0.3),
-        post=post1
-    )
-    reddit_comment_sentiment = Sentiment(
-        polarity=0.3,
-        magnitude=4.2,
-        score=(4.2 * 0.3),
-        reddit_comment=reddit_comment1
-    )
-    sentireddit_comment_sentiment = Sentiment(
-        polarity=0.3,
-        magnitude=4.2,
-        score=(4.2 * 0.3),
-        sentireddit_comment=sentireddit_comment1
-    )
+    # post_sentiment = Sentiment(
+    #     polarity=0.3,
+    #     magnitude=4.2,
+    #     score=(4.2 * 0.3),
+    #     post=post1
+    # )
+    # reddit_comment_sentiment = Sentiment(
+    #     polarity=0.3,
+    #     magnitude=4.2,
+    #     score=(4.2 * 0.3),
+    #     reddit_comment=reddit_comment1
+    # )
+    # sentireddit_comment_sentiment = Sentiment(
+    #     polarity=0.3,
+    #     magnitude=4.2,
+    #     score=(4.2 * 0.3),
+    #     sentireddit_comment=sentireddit_comment1
+    # )
 
     db.session.add(post1)
     db.session.add(post2)
     db.session.add(reddit_comment1)
     db.session.add(sentireddit_comment1)
-    db.session.add(post_sentiment)
-    db.session.add(reddit_comment_sentiment)
-    db.session.add(sentireddit_comment_sentiment)
+    # db.session.add(post_sentiment)
+    # db.session.add(reddit_comment_sentiment)
+    # db.session.add(sentireddit_comment_sentiment)
 
-    alex.user_sentiments = [post_sentiment, reddit_comment_sentiment, sentireddit_comment_sentiment]
+    # alex.user_sentiments = [post_sentiment, reddit_comment_sentiment, sentireddit_comment_sentiment]
     kianna.viewed_posts = [post1, post2]
     kianna.saved_posts = [post1, post2]
     db.session.add(alex)

@@ -18,7 +18,7 @@ const RedditPostCard = ({ post }) => {
         <h2>{post.title}</h2>
       </CardContent>
       <CardMedia 
-        component={RegExp(/.(jpe?g|png|gif|svg)$/).test(post.media) ? 'img' : 'video'} 
+        component={RegExp(/(placecage|.(jpe?g|png|gif|svg)$)/).test(post.media) ? 'img' : 'video'} 
         src={post.media} 
         style={{ height: '20vh', width: '30vw' }} 
       />

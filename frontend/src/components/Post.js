@@ -35,6 +35,7 @@ const Post = () => {
         if (initialResponse.data.sentiment && initialResponse.data.reddit_comments.every(comment => comment.sentiment)) return
         axios.get(`api/posts/${redditId}/sentiment`, { headers: { 'Authorization': `Bearer ${token}` } })
           .then(sentimentResponse => setPostWithComments(sentimentResponse.data))
+          .then(() => updateUser())
           .catch(err => console.log(err))
       })
       .then(() => updateUser())

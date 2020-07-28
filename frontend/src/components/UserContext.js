@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
 
   const [user, setUser] = useState({
     isLoggedIn: !!localStorage.getItem('token'),
-    // Optional chaining stops the code below from error-ing out if there is no token present.
+    // Optional chaining (? before .sub) stops the code below from error-ing out if there is no token present.
     id: jwt.decode(localStorage.getItem('token'))?.sub
 
   })
@@ -18,6 +18,7 @@ export const UserProvider = ({ children }) => {
   // Will be called any time the user's logged in status changes.
 
   useEffect(() => {
+    console.log('I am the user context call')
     if (!user.isLoggedIn) return
     axios.get(`/api/users/${user.id}`)
       .then(res => {

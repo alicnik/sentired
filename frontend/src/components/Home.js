@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { ApiContext } from './ApiContext'
 
 import TextField from '@material-ui/core/TextField'
@@ -13,8 +13,23 @@ import CategoryCarousel from './CategoryCarousel'
 const Home = () => {
 
   const [searchValue, setSearchValue] = useState('')
+  const [category, setCategory] = useState('hot')
   const [redditPosts, setRedditPosts] = useState([])
   const redditToken = useContext(ApiContext)
+
+  useEffect(() => {
+    axios.get(`https://oauth.reddit.com/${category}`,
+      {
+        headers: { 'Authorization': `Bearer ${redditToken}` }
+      })
+      .then(res => {
+        console.log(res)
+        setRedditPosts(res.data.data.children)
+      })
+      .catch(err => console.log(err))
+  }, [category, redditToken])
+
+  const handleCategory = (e) => setCategory(e.target.value)
 
   const handleSearch = () => {
     axios.get(`https://oauth.reddit.com/search?q=${searchValue}`,
@@ -23,7 +38,6 @@ const Home = () => {
       })
       .then(res => {
         setRedditPosts(res.data.data.children)
-        console.log(res.data.data.children)
       })
       .catch(err => console.log(err))
   }
@@ -45,7 +59,7 @@ const Home = () => {
           </InputAdornment>
       }}
     />
-    <CategoryCarousel/>
+    <CategoryCarousel handleCategory={handleCategory}/>
     {redditPosts.map((post, i) => <RedditPostCard key={i} post={post.data} />)}
   </main>
 

@@ -22,5 +22,4 @@ def fetch_sentiment(text):
     calls = ApiCalls.query.get(1)
     calls.count += 1
     calls.save()
-    print(sentiment['documentSentiment'])
     return sentiment['documentSentiment']

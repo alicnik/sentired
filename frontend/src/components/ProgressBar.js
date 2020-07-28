@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import angry from '../assets/angry.svg'
 import ecstatic from '../assets/ecstatic.svg'
@@ -6,50 +7,41 @@ import happy from '../assets/happy.svg'
 import neutral from '../assets/neutral.svg'
 import sad from '../assets/sad.svg'
 
-import getEmotion from '../utils/getEmotion'
+import { UserContext } from './UserContext'
 
 
 const ProgressBar = () => {
 
-  const user = {
-    sentiment: -1.5
-  }
+  const { pathname } = useLocation()
+  const { user } = useContext(UserContext)
 
-  const userEmotion = getEmotion(user.sentiment)
-
-  const positions = {
-    angry: '0%',
-    sad: '25%',
-    neutral: '50%',
-    happy: '75%',
-    ecstatic: '100%'
-  }
+  if (pathname.includes('account')) return <h4>{user.username}</h4>
 
   const emotions = {
-    angry,
-    sad,
-    neutral,
-    happy,
-    ecstatic
+    angry: { emoji: angry, position: '0%' },
+    sad: { emoji: sad, position: '25%' },
+    neutral: { emoji: neutral, position: '50%' },
+    happy: { emoji: happy, position: '75%' },
+    ecstatic: { emoji: ecstatic, position: '100%' }
   }
 
   const ProgressContainer = styled.div`
-  width: 60%;
-  background-image: linear-gradient(0.25turn, #ff0000, #13273e, beige, green, orange, yellow, pink);
-  position: relative;
-  height: 25px;
-`
+    width: 60%;
+    background-image: linear-gradient(0.25turn, #ff0000, #13273e, beige, green, orange, yellow, pink);
+    position: relative;
+    height: 25px;
+  `
   const Image = styled.img`
-  position: absolute;
-  height: 40px;
-  width: 40px;
-  top: 50%;
-  left: ${positions[userEmotion]};
-  transform: translate(-50%, -50%);
-`
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    left: ${emotions[user.emotion]?.position};
+    transform: translate(-50%, -50%);
+  `
   return (
     <ProgressContainer>
-      <Image src={emotions[userEmotion]} />
+      <Image src={emotions[user.emotion]?.emoji} />
     </ProgressContainer>
   )
 }
