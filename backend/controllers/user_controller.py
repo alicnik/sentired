@@ -1,13 +1,18 @@
 from flask import Blueprint, request, jsonify, g
 from models.user_model import User
+from models.post_model import Post
 from schemas.user_schema import UserSchema
+from schemas.post_schema import PostSchema
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 from marshmallow import ValidationError
+from lib.secure_route import secure_route
+
 # from app import db
 # from lib.secure_route import secure_route
 
 user_schema = UserSchema()
+post_schema = PostSchema()
 
 router = Blueprint(__name__, 'users')
 
@@ -22,6 +27,21 @@ def index():
 def get_user(id):
     user = User.query.get(id)
     return user_schema.jsonify(user), 200
+
+@router.route('/users/<int:id>/saved', methods=['PUT'])
+@secure_route
+def edit_user(id):
+    user = User.query.get(id)
+    if user.id != g.current_user.id:
+       return jsonify({ 'message': "You cannot edit someone else's profile" })
+    data = request.get_json()
+    post = Post.query.filter_by(reddit_id=data['redditId']).first()
+    if post in user.saved_posts:
+        user.saved_posts = [saved_post for saved_post in user.saved_posts if post.id != saved_post.id]
+    else:
+        user.saved_posts.append(post)
+    user.save()
+    return post_schema.jsonify(post), 201
 
 
 @router.route('/register', methods=['POST'])
@@ -60,4 +80,4 @@ def login():
         'emotion': user.emotion
     })
 
-# attempting to add routes back
+

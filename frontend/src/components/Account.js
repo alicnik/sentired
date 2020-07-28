@@ -10,7 +10,7 @@ import ecstatic from '../assets/ecstatic.svg'
 import happy from '../assets/happy.svg'
 import neutral from '../assets/neutral.svg'
 import sad from '../assets/sad.svg'
-import RedditPostCard from './RedditPostEmbedded'
+import RedditPostCard from './RedditPostCard'
 
 
 const Account = () => {
@@ -41,6 +41,8 @@ const Account = () => {
       </IconButton>
       <h3>Viewed Posts</h3>
       {user.viewed_posts?.map((post, i) => <RedditPostCard key={i} post={post} />)}
+      <h3>Saved Posts</h3>
+      {user.saved_posts?.map((post, i) => <RedditPostCard key={i} post={post} />)}
       <Modal
         open={open}
         onClose={handleClose}

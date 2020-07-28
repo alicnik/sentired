@@ -6,14 +6,15 @@ import RedditComment from './RedditComment'
 import SentiRedditComment from './SentiRedditComment'
 import { UserContext } from './UserContext'
 
-
 const Post = () => {
 
   const { pathname } = useLocation()
   const { updateUser } = useContext(UserContext)
   const [postWithComments, setPostWithComments] = useState([])
+  const [comment, setComment] = useState('')
   const redditId = pathname.match(/posts\/(\w+)$/)[1]
   const token = localStorage.getItem('token')
+
 
   useEffect(() => {
     axios.get(`/api/posts/${redditId}`, { headers: { 'Authorization': `Bearer ${token}` } })
@@ -44,27 +45,47 @@ const Post = () => {
 
   if (postWithComments.length === 0) return null
 
+  const addComment = () => {
+    // event.preventDefault()
+    axios.post(`api/posts/${redditId}/comments`, { body: comment },
+      {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(res => {
+        setPostWithComments(res.data)
+        setComment('')
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <main>
       <section className="post">
-        <RedditPostEmbedded post={postWithComments} />
+        <RedditPostEmbedded post={postWithComments} token={token} setPostWithComments={setPostWithComments}/>
       </section>
       <section className="reddit-comments">
         {postWithComments.reddit_comments.map((comment, i) => <RedditComment key={i} comment={comment} />)}
       </section>
       <section className="sentireddit-comments">
-        {postWithComments.sentireddit_comments.map((comment, i) => <SentiRedditComment key={i} comment={comment} />)}
+        {postWithComments.sentireddit_comments.map((comment, i) => (
+          <SentiRedditComment 
+            key={i} 
+            comment={comment} 
+            token={token}
+            redditId={redditId}
+            setPostWithComments={setPostWithComments}
+          />
+        ))}
       </section>
+      <input
+        name="text"
+        onChange={(event) => setComment(event.target.value)}
+        placeholder="Comment"
+        value={comment}
+      />
+      <button onClick={addComment}>Add Comment</button>  
     </main>
   )
-
-
-
-
-
-
-
-
 }
 
 export default Post

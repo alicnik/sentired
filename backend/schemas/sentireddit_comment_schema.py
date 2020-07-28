@@ -9,7 +9,7 @@ from schemas.sentiment_schema import SentimentSchema
 class SentiRedditCommentSchema(ma.SQLAlchemyAutoSchema, BaseSchema):
 
     sentiment = fields.Nested('SentimentSchema')
-    user = fields.Nested('UserSchema', only=(('username', 'avatar')))
+    user = fields.Nested('UserSchema', only=(('username', 'avatar', 'id')))
 
     class Meta:
         model = SentiRedditComment

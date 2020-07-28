@@ -4,7 +4,7 @@ import { Card, CardHeader, Avatar, CardMedia, CardContent } from '@material-ui/c
 import { randomCage } from '../utils/randomCage'
 
 
-const RedditPost = ({ post }) => {
+const RedditPostCard = ({ post }) => {
 
   return (
     <Link to={`/posts/${post.id}`}>
@@ -13,13 +13,15 @@ const RedditPost = ({ post }) => {
           avatar={
             <Avatar src={randomCage()} />
           }
-          title={post.subreddit_name_prefixed}
-          subheader={post.author}
+          title={post.subreddit_name_prefixed || post.subreddit}
+          subheader={post.author || post.reddit_author}
         />
-        {post.thumbnail !== 'self' && <CardMedia
-          image={post.thumbnail}
-          style={{ height: '20vh', width: '30vw' }}
-        />}
+        {post.thumbnail !== 'self' &&
+          <CardMedia
+            image={post.thumbnail || (!post.media?.includes('mp4') && post.media) || randomCage()}
+            style={{ height: '20vh', width: '30vw' }}
+          />
+        }
         <CardContent>
           <h2>{post.title}</h2>
         </CardContent>
@@ -28,4 +30,4 @@ const RedditPost = ({ post }) => {
   )
 }
 
-export default RedditPost
+export default RedditPostCard
