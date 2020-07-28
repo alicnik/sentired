@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 import RedditPostCard from './RedditPostCard'
 
 import axios from 'axios'
+import CategoryCarousel from './CategoryCarousel'
 
 const Home = () => {
 
@@ -44,6 +45,7 @@ const Home = () => {
           </InputAdornment>
       }}
     />
+    <CategoryCarousel/>
     {redditPosts.map((post, i) => <RedditPostCard key={i} post={post.data} />)}
   </main>
 

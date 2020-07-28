@@ -7,11 +7,6 @@ import { useHistory } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
-// username
-// email
-// password
-// password confirmation
-
 const schema = Yup.object().shape({
   username: Yup.string().required('Please enter a username'),
   email: Yup.string().email('Please enter a valid email address').required('Please enter your email'),
