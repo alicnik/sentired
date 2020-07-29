@@ -12,6 +12,28 @@ export const MaterialProvider = ({ children }) => {
         root: {
           color: styleTheme.color
         }
+      },
+      MuiTypography: {
+        body2: {
+          fontFamily: styleTheme.font
+        }
+      },
+      MuiCard: {
+        root: {
+          marginBottom: '2rem'
+        }
+      },
+      MuiCardContent: {
+        root: {
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center'
+        }
+      },
+      MuiFormControl: {
+        root: {
+          backgroundColor: '#fafafa'
+        }
       }
     }
   })

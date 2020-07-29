@@ -60,7 +60,7 @@ def get_one(reddit_id):
             new_post.media = data['media']['reddit_video']['fallback_url']
         elif 'preview' in data and data['preview'] and 'reddit_video_preview' in data['preview']:
             new_post.media = data['preview']['reddit_video_preview']['fallback_url']
-        elif 'thumbnail' in data and data['thumbnail'] and data['thumbnail'] != 'self':
+        elif 'thumbnail' in data and data['thumbnail'] and data['thumbnail'] != 'self' and data['thumbnail'] != 'spoiler' and data['thumbnail'] != 'default':
             new_post.media = data['thumbnail']
         else:
             new_post.media = random_cage()

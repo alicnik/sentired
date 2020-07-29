@@ -31,8 +31,9 @@ const Account = () => {
     width: 30vw;
   `
 
-  const H2 = styled.h2`
-    font-family: 'Comic Sans', sans-serif;
+  const ModalDiv = styled.div`
+    background-color: whitesmoke;
+    padding: 1rem;
   `
 
   return (
@@ -52,10 +53,12 @@ const Account = () => {
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
       >
-        <H2>
-        Sentiment Score
-        </H2>
+        <ModalDiv>
+          <h2>Sentiment Score</h2>
+          <p>This is what I am talking about at the moment.</p>
+        </ModalDiv>
       </Modal>
     </main>
   )

@@ -16,7 +16,7 @@ export default createGlobalStyle`
 
     body {
       padding: 2rem;
-      color: ${props => props.theme.color}
+      color: ${props => props.theme.color};
     }
 
     a {

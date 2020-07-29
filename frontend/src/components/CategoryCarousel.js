@@ -9,17 +9,20 @@ const CategoryCarousel = ({ handleCategory }) => {
     width: 80%;
     display: flex;
     overflow-x: scroll;
-    margin: 0 auto;
+    margin: 2rem auto;
     position: relative;
     height: min-content;
   `
 
   const CarouselItem = styled.button`
-    border: 1px solid black;
+    border: 1px solid grey;
     border-radius: 0;
     margin: 0.5rem 1rem;
     text-transform: uppercase;
-    background: none;
+    background: #fafafa;
+    padding: 0.5rem 1rem;
+    letter-spacing: 0.1rem;
+    color: ${props => props.theme.color}
   `
 
   return (
