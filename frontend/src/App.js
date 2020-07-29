@@ -21,18 +21,18 @@ const App = () => {
       <UserProvider>
         <ApiProvider>
           <StyleProvider>
-            <MaterialProvider>
-              <GlobalStyle />
-              <NavBar />
-              <Switch>
-                <Route exact path="/" component={Welcome} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
+            <GlobalStyle />
+            <NavBar />
+            <Switch>
+              <Route exact path="/" component={Welcome} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <MaterialProvider>
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/account" component={Account} />
-                <Route path="/posts/:redditId" component={Post} />         {/* <Route exact path="/" component={Welcome} /> */}
-              </Switch>
-            </MaterialProvider>
+                <Route path="/posts/:redditId" component={Post} />
+              </MaterialProvider>
+            </Switch>
           </StyleProvider>
         </ApiProvider>
       </UserProvider>

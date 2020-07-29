@@ -5,6 +5,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import { UserContext } from './UserContext'
 import axios from 'axios'
+import styled from 'styled-components'
 
 const RedditPostEmbedded = ({ post, token, setPostWithComments }) => {
 
@@ -19,6 +20,11 @@ const RedditPostEmbedded = ({ post, token, setPostWithComments }) => {
         setPostWithComments(res.data)
       })
   }
+
+  const H2 = styled.h2`
+    margin-left: 20px;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+  `
 
   return (
     <Card>
@@ -37,16 +43,18 @@ const RedditPostEmbedded = ({ post, token, setPostWithComments }) => {
         subheader={post.reddit_author}
       />
       <CardContent>
-        <h2>{post.title}</h2>
+        <CardMedia
+          component={RegExp(/(placecage|.(jpe?g|png|gif|svg)$)/).test(post.media) ? 'img' : 'video'}
+          src={post.media}
+          style={{ height: 'clamp(250px, 30vw, 300px)', width: 'clamp(250px, 30vw, 300px)' }}
+        />
+        <H2>{post.title}</H2>
       </CardContent>
-      <CardMedia
-        component={RegExp(/(placecage|.(jpe?g|png|gif|svg)$)/).test(post.media) ? 'img' : 'video'}
-        src={post.media}
-        style={{ height: 'clamp(250px, 30vw, 300px)', width: 'clamp(250px, 30vw, 300px)' }}
-      />
-      <CardContent>
-        <p>{post.selftext}</p>
-      </CardContent>
+      {post.selftext && 
+        <CardContent>
+          <p>{post.selftext}</p>
+        </CardContent>
+      }
     </Card>
   )
 }

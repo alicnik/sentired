@@ -7,6 +7,8 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import styled from 'styled-components'
+import rorschach from '../assets/Rorschach.mp4'
 
 
 const schema = Yup.object().shape({
@@ -42,26 +44,54 @@ const Login = () => {
       })
   }
 
+  const BackgroundVideo = styled.video`
+    min-height: 100vh;
+    min-width: 100vh;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    pointer-events: none;
+    transform: translate(-50%);
+    z-index: -1;
+  `
+
+  const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30vh;
+    justify-content: space-around;  
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  `
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '50vh', justifyContent: 'space-around' }}>
-      <TextField
-        name="email"
-        inputRef={register}
-        label="Email"
-        type="email"
-        variant="outlined"
-      />
-      <span>{errors.email?.message}</span>
-      <TextField
-        name="password"
-        inputRef={register}
-        label="Password"
-        type="password"
-        variant="outlined"
-      />
-      <span>{errors.password?.message}</span>
-      <Button type="submit" variant="outlined">Submit</Button>
-    </form>
+    <main>
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          name="email"
+          inputRef={register}
+          label="Email"
+          type="email"
+          variant="outlined"
+        />
+        <span>{errors.email?.message}</span>
+        <TextField
+          name="password"
+          inputRef={register}
+          label="Password"
+          type="password"
+          variant="outlined"
+        />
+        <span>{errors.password?.message}</span>
+        <Button type="submit" variant="outlined" color="primary">Submit</Button>
+      </StyledForm>
+      <BackgroundVideo autoPlay muted loop>
+        <source src={rorschach} type="video/mp4" />
+      </BackgroundVideo>
+    </main>
   )
 
 }

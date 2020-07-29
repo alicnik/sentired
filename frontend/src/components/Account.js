@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { UserContext } from './UserContext'
-import styled from 'styled-components'
+import styled, {ThemeContext as StyleContext} from 'styled-components'
 
 import { IconButton, Modal } from '@material-ui/core'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
@@ -16,6 +16,7 @@ import RedditPostCard from './RedditPostCard'
 const Account = () => {
 
   const { user } = useContext(UserContext)
+  const styleTheme = useContext(StyleContext)
   const [open, setOpen] = React.useState(false)
   const emojis = { angry, happy, sad, neutral, ecstatic }
 
@@ -30,23 +31,60 @@ const Account = () => {
   const Image = styled.img`
     width: 30vw;
   `
-
   const ModalDiv = styled.div`
     background-color: whitesmoke;
     padding: 1rem;
   `
+  const Main = styled.main`
+    display: flex;
+    flex-direction: column;
+  `
+  const FlexOuter = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5vh;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  `
+  const FlexInner = styled.div`
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+  `
+  const H1 = styled.h1`
+    text-align: center;
+    text-transform: uppercase;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+  `
+  const H2 = styled.h2`
+    text-align: center;
+    text-transform: uppercase;
+    font-size: clamp(4rem, 10vw, 8rem);
+    margin: 0;
+  `
+  const H3 = styled.h3`
+    text-align: center;
+    text-transform: uppercase;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+  `
+
 
   return (
-    <main>
-      <Image src={emojis[user.emotion]} alt={user.emotion}/>
-      <h1>{user.username}</h1>
-      <h2>{Math.round(user.aggregate_sentiment * 100)}</h2>
-      <IconButton onClick={handleOpen}>
-        <HelpOutlineIcon />
-      </IconButton>
-      <h3>Viewed Posts</h3>
+    <Main>
+      <FlexOuter>
+        <Image src={emojis[user.emotion]} alt={user.emotion} />
+        <FlexInner>
+          <H1>{user.username}</H1>
+          <H2>{Math.round(user.aggregate_sentiment * 100)}</H2>
+          <IconButton onClick={handleOpen}>
+            <HelpOutlineIcon />
+          </IconButton>
+        </FlexInner>
+      </FlexOuter>
+      <H3>Viewed Posts</H3>
       {user.viewed_posts?.map((post, i) => <RedditPostCard key={i} post={post} />)}
-      <h3>Saved Posts</h3>
+      <H3>Saved Posts</H3>
       {user.saved_posts?.map((post, i) => <RedditPostCard key={i} post={post} />)}
       <Modal
         open={open}
@@ -60,7 +98,7 @@ const Account = () => {
           <p>This is what I am talking about at the moment.</p>
         </ModalDiv>
       </Modal>
-    </main>
+    </Main>
   )
 }
 

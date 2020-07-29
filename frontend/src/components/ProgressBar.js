@@ -8,12 +8,13 @@ import neutral from '../assets/neutral.svg'
 import sad from '../assets/sad.svg'
 
 import { UserContext } from './UserContext'
-
+import { ThemeContext as StyleContext } from 'styled-components'
 
 const ProgressBar = () => {
 
   const { pathname } = useLocation()
   const { user } = useContext(UserContext)
+  const styleTheme = useContext(StyleContext)
 
   if (pathname.includes('account')) return <h4>{user.username}</h4>
 
@@ -29,14 +30,18 @@ const ProgressBar = () => {
     width: 60%;
     background-image: linear-gradient(0.25turn, #400000, #BF0000, #0071B6, #626665, #fff600, #B6C61A, #4CBB17);
     position: relative;
-    height: 25px;
+    height: 20px;
+    transition: 2s ease-in-out linear 3s;
+    border-radius: ${styleTheme.borderRadius}
   `
+
   const Image = styled.img`
     position: absolute;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     top: 50%;
     left: ${emotions[user.emotion]?.position};
+    transition: 2s ease-in-out linear 3s;
     transform: translate(-50%, -50%);
   `
   return (
