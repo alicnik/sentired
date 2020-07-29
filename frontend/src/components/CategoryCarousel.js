@@ -9,7 +9,7 @@ const CategoryCarousel = ({ handleCategory }) => {
     width: 80%;
     display: flex;
     overflow-x: scroll;
-    margin: 2rem auto;
+    margin: 2rem 0;
     position: relative;
     height: min-content;
   `

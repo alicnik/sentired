@@ -17,11 +17,8 @@ export default createGlobalStyle`
     body {
       padding: 2rem;
       color: ${props => props.theme.color};
-<<<<<<< HEAD
-=======
       font-family: ${props => props.theme.font};
       background: ${props => props.theme.background};
->>>>>>> development
     }
 
     a {
