@@ -11,30 +11,29 @@ export const StyleProvider = ({ children }) => {
   
   const colors = {
     angry: '#400000',
-    sad: '#0071B6',
-    neutral: '#EEE9E9',
-    happy: '#fff600',
+    sad: '#225b7c',
+    neutral: '#626665',
+    happy: '#ffae42',
     ecstatic: '#4CBB17'
   }
 
-  const theme = {
-    color: colors[user.emotion]
+  const fonts = {
+    angry: '"Comic Sans", sans-serif',
+    sad: '"Gloria Hallelujah", cursive',
+    netural: 'Arial',
+    happy: '"Poppins", sans-serif',
+    ecstatic: '"Spicy Rice", cursive'
+
   }
 
-  // fonts: {
-  //   angry:
-  //   sad:
-  //   netural:
-  //   happy:
-  //   ecstatic:
-  // },
-  // fontSizes: {
-  //   xsmall: '0.5rem',
-  //   small: '1rem',
-  //   medium: '2rem',
-  //   large: '3rem',
-  //   xlarge: '3.5rem'
-  // },
+  // const backgrounds = {
+  //   angry: '#400000',
+  //   sad: '#728496',
+  //   neutral: '#eee9e9',
+  //   happy: '#fceea7',
+  //   ecstatic: '#cae3c6'
+  // }
+
   // borderRadius: {
   //   angry: '1px',
   //   sad: '2px',
@@ -42,6 +41,21 @@ export const StyleProvider = ({ children }) => {
   //   happy: '10px',
   //   ecstatic: '25px'
   // }
+
+  const theme = {
+    color: colors[user.emotion],
+    font: fonts[user.emotion],
+    background: colors[user.emotion]
+  }
+
+  // fontSizes: {
+  //   xsmall: '0.5rem',
+  //   small: '1rem',
+  //   medium: '2rem',
+  //   large: '3rem',
+  //   xlarge: '3.5rem'
+  // },
+ 
   // #400000, #BF0000, #004B90, #0071B6, #EEE9E9, #ffb38a, #fff600, #B6C61A, #4CBB17)
   // const Main = styled.main`
   //   background-color: 'eee9ee';
