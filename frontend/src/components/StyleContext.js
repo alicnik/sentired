@@ -10,11 +10,11 @@ export const StyleProvider = ({ children }) => {
   const { user } = useContext(UserContext)
 
   const colors = {
-    angry: '#ca2613',
-    sad: '#225b7c',
-    neutral: '#626665',
+    angry: '#400000',
+    sad: '#0071B6',
+    neutral: '#b5b7bb',
     happy: '#e1ad01',
-    ecstatic: '#5aa15c'
+    ecstatic: '#4CBB17'
   }
 
   const fonts = {
