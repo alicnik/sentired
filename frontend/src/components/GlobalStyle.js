@@ -15,7 +15,7 @@ export default createGlobalStyle`
     }
 
     body {
-      padding: 2rem;
+      padding: 1rem 2rem;
       color: ${props => props.theme.color};
       font-family: ${props => props.theme.font};
       background: ${props => props.theme.background};

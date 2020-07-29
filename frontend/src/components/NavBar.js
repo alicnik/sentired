@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
+import { ThemeContext as StyleContext } from 'styled-components'
 import { UserContext } from './UserContext'
 import ProgressBar from './ProgressBar'
 import styled from 'styled-components'
 import Ufo from '../assets/ufo.svg'
 
 const NavBar = () => {
-
+  
+  const styleTheme = useContext(StyleContext)
   const { pathname } = useLocation()
   const history = useHistory()
   const noNavPages = ['/', '/register', '/login']
@@ -15,9 +17,8 @@ const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
-  if (noNavPages.includes(pathname)) return null
-
   const handleMenu = (event) => {
+    console.log(event.currentTarget)
     setAnchorEl(event.currentTarget)
   }
 
@@ -31,6 +32,20 @@ const NavBar = () => {
     history.push('/')
   }
 
+  const Header = styled.header`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fafafa;
+    margin-bottom: 1rem;
+    width: calc(100vw - 2rem);
+    transform: translate(-2rem, -1rem);
+    border-bottom: 5px solid ${styleTheme.borderColour}
+  `
+
+  if (noNavPages.includes(pathname)) return null
+
   return (
 
     <Header>
@@ -43,7 +58,7 @@ const NavBar = () => {
           onClick={handleMenu}
           color="inherit"
         >
-          <img src={Ufo} alt="menu" height="70px"/>
+          <img src={Ufo} alt="menu" height="57px"/>
         </IconButton>
         <Menu
           id="menu-appbar"
@@ -75,12 +90,5 @@ const NavBar = () => {
 
   )
 }
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-`
 
 export default NavBar

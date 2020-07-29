@@ -9,12 +9,14 @@ import CardContent from '@material-ui/core/CardContent'
 import Skeleton from '@material-ui/lab/Skeleton'
 import styled from 'styled-components'
 
-const RedditPostCard = ({ post, loading = false }) => {
 
+const RedditPostCard = ({ post, loading = false }) => {
+  
   const { pathname } = useLocation()
 
   const H2 = styled.h2`
     margin-left: 20px;
+    font-size: clamp(1rem, 3vw, 1.5rem);
   `
 
   // Link uses ternary so that component can be reused on account page where post.id will refer to SQL db, 
@@ -39,10 +41,10 @@ const RedditPostCard = ({ post, loading = false }) => {
         <CardContent>
           { loading ?
             (<Skeleton variant="rect" width="40%" height="150px" style={{ float: 'left' }}/>) :
-            (post.thumbnail !== 'self' && post.thumbnail !== 'spoiler' && post.thumbnail !== 'default' && 
+            ( ((/\.(png|jpe?g|gif)$/).test(post?.thumbnail) || post.media) && 
             <CardMedia
               image={post.thumbnail || (!post.media?.includes('mp4') && post.media) || randomCage()}
-              style={{ width: '20vw', height: '20vw', minHeight: 200, minWidth: 200, backgroundSize: 'contain' }}
+              style={{ width: '20vw', height: '20vw', minHeight: 150, minWidth: 150, backgroundSize: 'contain' }}
             />)
           }
           {loading ? 
