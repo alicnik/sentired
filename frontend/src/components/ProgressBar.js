@@ -27,7 +27,7 @@ const ProgressBar = () => {
 
   const ProgressContainer = styled.div`
     width: 60%;
-    background-image: linear-gradient(0.25turn, #400000, #BF0000, #004B90, #0071B6, #EEE9E9, #ffb38a, #fff600, #B6C61A, #4CBB17);
+    background-image: linear-gradient(0.25turn, #400000, #BF0000, #0071B6, #626665, #fff600, #B6C61A, #4CBB17);
     position: relative;
     height: 25px;
   `
