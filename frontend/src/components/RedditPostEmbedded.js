@@ -24,14 +24,13 @@ const RedditPostEmbedded = ({ post, token, setPostWithComments }) => {
     <Card>
       <CardHeader
         avatar={
-          <Avatar src={randomCage()} />
-        }
+          <Avatar src={post.reddit_author_avatar || randomCage()} />}
         action={
           <IconButton
             aria-label="settings"
             onClick={handleFavourite}
           >
-            {user.saved_posts.some(savedPost => post.id === savedPost.id) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {user.saved_posts?.some(savedPost => post.id === savedPost.id) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
         }
         title={`r/${post.subreddit}`}
@@ -43,7 +42,7 @@ const RedditPostEmbedded = ({ post, token, setPostWithComments }) => {
       <CardMedia
         component={RegExp(/(placecage|.(jpe?g|png|gif|svg)$)/).test(post.media) ? 'img' : 'video'}
         src={post.media}
-        style={{ height: '20vh', width: '30vw' }}
+        style={{ height: 'clamp(250px, 30vw, 300px)', width: 'clamp(250px, 30vw, 300px)' }}
       />
       <CardContent>
         <p>{post.selftext}</p>

@@ -18,7 +18,6 @@ export const UserProvider = ({ children }) => {
   // Will be called any time the user's logged in status changes.
 
   useEffect(() => {
-    console.log('I am the user context call')
     if (!user.isLoggedIn) return
     axios.get(`/api/users/${user.id}`)
       .then(res => {
