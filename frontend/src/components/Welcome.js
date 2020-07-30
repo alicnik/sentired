@@ -14,12 +14,6 @@ const Welcome = () => {
   const history = useHistory()
 
 
-  // User Context will look for token in local storage and automatically sign user in if token is found.
-  // Guard clause here to forward user to homepage if they are already logged in.
-  if (user.isLoggedIn) {
-    history.push('/home')
-  }
-
   const handleOpen = () => {
     setOpen(true)
   }
@@ -45,14 +39,11 @@ const Welcome = () => {
     
   `
 
-  // const Container = styled.div`
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: space-evenly; 
-  // `
-
-  // <a href="#" style="display:block; width:247px; height:66px; position:absolute; left: 48px; top: 275px;"></a>
-  // style={{ display: 'block', position: 'absolute', left: '68%', top: '80%' }}
+  // User Context will look for token in local storage and automatically sign user in if token is found.
+  // Guard clause here to forward user to homepage if they are already logged in.
+  if (user.isLoggedIn) {
+    history.push('/home')
+  }
 
   return <main>
     <Container>

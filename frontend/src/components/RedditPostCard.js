@@ -41,7 +41,7 @@ const RedditPostCard = ({ post, loading = false }) => {
         <CardContent>
           { loading ?
             (<Skeleton variant="rect" width="40%" height="150px" style={{ float: 'left' }}/>) :
-            ( ((/\.(png|jpe?g|gif)$/).test(post?.thumbnail) || post.media) && 
+            ( (post.thumbnail?.includes('.') || typeof post.media === 'string') && 
             <CardMedia
               image={post.thumbnail || (!post.media?.includes('mp4') && post.media) || randomCage()}
               style={{ width: '20vw', height: '20vw', minHeight: 150, minWidth: 150, backgroundSize: 'contain' }}

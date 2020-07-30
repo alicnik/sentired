@@ -27,9 +27,7 @@ export const ApiProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log('I\'m the API call and I don\'t know if the user is logged in')
     if (!user.isLoggedIn) return
-    console.log('I\'m the API call and the user is logged in')
     refreshToken()
     setInterval(refreshToken, (55 * 60000))
 

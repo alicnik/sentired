@@ -94,7 +94,8 @@ const Account = () => {
         <Image src={emojis[user.emotion]} alt={user.emotion} />
         <FlexInner>
           <H1>{user.username}</H1>
-          <H2>{Math.round(user.aggregate_sentiment * 100)}</H2>
+          <H2>{user.aggregate_sentiment && Math.round(user.aggregate_sentiment * 100)}</H2>
+          <span>What&apos;s this number &nbsp;</span>
           <IconButton onClick={handleOpen}>
             <HelpOutlineIcon />
           </IconButton>
@@ -119,7 +120,7 @@ const Account = () => {
       >
         <ModalDiv>
           <h2>Sentiment Score</h2>
-          <p>This is what I am talking about at the moment.</p>
+          <p>This is the amount of positive or negative sentiment you&apos;ve been exposed to in all of the Reddit posts and comments you&apos;ve read.</p>
         </ModalDiv>
       </Modal>
     </Main>

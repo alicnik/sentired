@@ -10,7 +10,7 @@ const CategoryCarousel = ({ handleCategory }) => {
     max-width: 700px;
     display: flex;
     overflow-x: scroll;
-    margin: 2rem auto;
+    margin: 2rem 0;
     position: relative;
     height: min-content;
 
@@ -25,8 +25,8 @@ const CategoryCarousel = ({ handleCategory }) => {
     margin: 0.5rem 1rem;
     text-transform: uppercase;
     background: #fafafa;
-    padding: 0.5rem 1rem;
-    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
     letter-spacing: 0.1rem;
     color: ${props => props.theme.color};
     box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);

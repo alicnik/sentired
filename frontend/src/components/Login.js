@@ -7,9 +7,8 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import styled from 'styled-components'
-import rorschach from '../assets/Rorschach.mp4'
-
+import { StyledForm } from './StyledForm'
+import { BackgroundVideo } from './BackgroundVideo'
 
 const schema = Yup.object().shape({
   email: Yup.string().email('Please enter a valid email address').required('Please enter your email address'),
@@ -44,31 +43,17 @@ const Login = () => {
       })
   }
 
-  const BackgroundVideo = styled.video`
-    min-height: 100vh;
-    min-width: 100vh;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    pointer-events: none;
-    transform: translate(-50%);
-    z-index: -1;
-  `
-
-  const StyledForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 30vh;
-    justify-content: space-around;  
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  `
-
   return (
-    <main>
+    <main style={{ overflow: 'hidden' }}>
+      <h2 style={{
+        fontSize: '4rem',
+        color: 'white',
+        margin: '0 auto',
+        textAlign: 'center',
+        lineHeight: '30vh',
+        letterSpacing: '0.1rem',
+        fontFamily: '"Nanum Myeongjo", serif'
+      }}>LOG &nbsp;IN</h2>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <TextField
           name="email"
@@ -86,14 +71,14 @@ const Login = () => {
           variant="outlined"
         />
         <span>{errors.password?.message}</span>
-        <Button type="submit" variant="outlined" color="primary">Submit</Button>
+        <Button type="submit" variant="outlined">Submit</Button>
       </StyledForm>
-      <BackgroundVideo autoPlay muted loop>
-        <source src={rorschach} type="video/mp4" />
-      </BackgroundVideo>
+      <BackgroundVideo/>
     </main>
   )
 
 }
 
 export default Login
+
+
