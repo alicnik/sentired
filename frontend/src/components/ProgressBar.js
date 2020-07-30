@@ -12,11 +12,9 @@ import { ThemeContext as StyleContext } from 'styled-components'
 
 const ProgressBar = () => {
 
-  // const { pathname } = useLocation()
   const { user } = useContext(UserContext)
   const styleTheme = useContext(StyleContext)
 
-  // if (pathname.includes('account')) return <h4>{user.username}</h4>
 
   const emotions = {
     angry: { emoji: angry, position: '0%' },

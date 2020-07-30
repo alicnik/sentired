@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
-import styled, { ThemeContext as StyleContext } from 'styled-components'
+import { ThemeContext as StyleContext } from 'styled-components'
 import { UserContext } from './UserContext'
 import ProgressBar from './ProgressBar'
 import UfoSvg from './UfoSvg'
-import sentired from '../assets/sentired.svg'
 
 const NavBar = () => {
   
@@ -43,21 +42,11 @@ const NavBar = () => {
     borderBottom: `5px solid ${styleTheme.borderColour}`
   }
 
-  const Logo = styled.img`
-    cursor: pointer;
-    width: 150px;
-
-    @media screen and (max-width: 900px) {
-      display: none;
-    }
-  `
-
   if (noNavPages.includes(pathname)) return null
 
   return (
 
     <header style={styles}>
-      <Logo alt="logo" src={sentired} onClick={() => history.push('/home')} />
       <ProgressBar />
       <div>
         <IconButton
