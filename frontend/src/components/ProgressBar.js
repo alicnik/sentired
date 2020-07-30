@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useLocation } from 'react-router-dom'
+// import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import angry from '../assets/angry.svg'
 import ecstatic from '../assets/ecstatic.svg'
@@ -12,11 +12,11 @@ import { ThemeContext as StyleContext } from 'styled-components'
 
 const ProgressBar = () => {
 
-  const { pathname } = useLocation()
+  // const { pathname } = useLocation()
   const { user } = useContext(UserContext)
   const styleTheme = useContext(StyleContext)
 
-  if (pathname.includes('account')) return <h4>{user.username}</h4>
+  // if (pathname.includes('account')) return <h4>{user.username}</h4>
 
   const emotions = {
     angry: { emoji: angry, position: '0%' },

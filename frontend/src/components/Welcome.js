@@ -36,9 +36,7 @@ const Welcome = () => {
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
     >
-      <h2>
-        About
-      </h2>
+      <h2>About</h2>
     </Modal>
 
   </main>

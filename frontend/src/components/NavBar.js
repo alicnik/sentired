@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { IconButton, Menu, MenuItem } from '@material-ui/core'
-import { ThemeContext as StyleContext } from 'styled-components'
+import styled, { ThemeContext as StyleContext } from 'styled-components'
 import { UserContext } from './UserContext'
 import ProgressBar from './ProgressBar'
-import Ufo from '../assets/ufo.svg'
+import UfoSvg from './UfoSvg'
+import sentired from '../assets/sentired.svg'
 
 const NavBar = () => {
   
@@ -42,11 +43,21 @@ const NavBar = () => {
     borderBottom: `5px solid ${styleTheme.borderColour}`
   }
 
+  const Logo = styled.img`
+    cursor: pointer;
+    width: 150px;
+
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+  `
+
   if (noNavPages.includes(pathname)) return null
 
   return (
 
     <header style={styles}>
+      <Logo alt="logo" src={sentired} onClick={() => history.push('/home')} />
       <ProgressBar />
       <div>
         <IconButton
@@ -55,8 +66,9 @@ const NavBar = () => {
           aria-haspopup="true"
           onClick={handleMenu}
           color="inherit"
+          height="57px"
         >
-          <img src={Ufo} alt="menu" height="57px"/>
+          <UfoSvg height="57px"/>
         </IconButton>
         <Menu
           id="menu-appbar"
