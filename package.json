@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "serve": "webpack-dev-server --mode=development"
+    "serve": "webpack-dev-server --mode=development",
+    "build": "pipenv install; npm i; webpack -p; pipenv run python seed.py",
+    "serve:react": "webpack-dev-server",
+    "serve:flask": "pipenv run flask run"
   },
   "name": "project-4",
   "description": "",

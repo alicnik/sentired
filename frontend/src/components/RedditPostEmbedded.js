@@ -6,6 +6,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import { UserContext } from './UserContext'
 import axios from 'axios'
 import styled from 'styled-components'
+import ReactMarkdown from 'react-markdown'
 
 const RedditPostEmbedded = ({ post, token, setPostWithComments }) => {
 
@@ -50,9 +51,9 @@ const RedditPostEmbedded = ({ post, token, setPostWithComments }) => {
         />
         <H2>{post.title}</H2>
       </CardContent>
-      {post.selftext && 
-        <CardContent>
-          <p>{post.selftext}</p>
+      {post.body && 
+        <CardContent style={{ flexDirection: 'column' }}>
+          <ReactMarkdown escapeHtml={false} source={post.body}/>
         </CardContent>
       }
     </Card>

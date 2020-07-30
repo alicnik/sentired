@@ -32,7 +32,6 @@ const ProgressBar = () => {
     transition: 2s ease-in-out linear 3s;
     border-radius: ${styleTheme.borderRadius}
   `
-
   const Image = styled.img`
     position: absolute;
     height: 50px;
@@ -42,9 +41,10 @@ const ProgressBar = () => {
     transition: 2s ease-in-out linear 3s;
     transform: translate(-50%, -50%);
   `
+
   return (
     <ProgressContainer>
-      <Image src={emotions[user.emotion]?.emoji} />
+      <Image src={emotions[user.emotion]?.emoji} style={{ left: emotions[user.emotion]?.position }} />
     </ProgressContainer>
   )
 }

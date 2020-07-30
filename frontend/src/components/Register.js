@@ -7,7 +7,8 @@ import { useHistory } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { BackgroundVideo } from './BackgroundVideo'
-import { StyledForm } from './StyledForm'
+import styled from 'styled-components'
+// import { StyledForm } from './StyledForm'
 
 const schema = Yup.object().shape({
   username: Yup.string().required('Please enter a username'),
@@ -20,6 +21,20 @@ const schema = Yup.object().shape({
   password_confirmation: Yup.string().required('Please confirm your password')
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 60vh;
+  min-width: 300px;
+  justify-content: space-around;  
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+`
 
 const Register = () => {
 
@@ -50,7 +65,7 @@ const Register = () => {
         letterSpacing: '0.1rem',
         fontFamily: '"Nanum Myeongjo", serif'
       }}>REGISTER</h2>
-      <StyledForm onSubmit={handleSubmit(onSubmit)} style={{ minHeight: '60vh', top: '60%' }}>
+      <StyledForm onSubmit={handleSubmit(onSubmit)} >
         <TextField
           name="username"
           inputRef={register}

@@ -31,7 +31,6 @@ export const MaterialProvider = ({ children }) => {
         root: {
           display: 'flex',
           color: styleTheme.borderColour,
-          // flexWrap: 'wrap',
           alignItems: 'center',
           [defaultTheme.breakpoints.down('sm')]: {
             justifyContent: 'center'

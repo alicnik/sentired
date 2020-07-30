@@ -67,11 +67,6 @@ export const StyleProvider = ({ children }) => {
     header: headerColours[user.emotion]
   }
 
-  // #400000, #BF0000, #004B90, #0071B6, #EEE9E9, #ffb38a, #fff600, #B6C61A, #4CBB17)
-  // const Main = styled.main`
-  //   background-color: 'eee9ee';
-  // `
-
   return (
     <ThemeProvider theme={theme}>
       {children}

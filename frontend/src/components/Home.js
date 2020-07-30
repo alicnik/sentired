@@ -37,7 +37,7 @@ const Home = () => {
 
   const handleSearch = () => {
     setLoading(true)
-    axios.get(`https://oauth.reddit.com/search?q=${searchValue.current}`,
+    axios.get(`https://oauth.reddit.com/search?q=${searchValue}`,
       {
         headers: { 'Authorization': `Bearer ${redditToken}` }
       })

@@ -31,12 +31,10 @@ const Login = () => {
   const onSubmit = (data) => {
     axios.post('/api/login', data)
       .then(resp => {
-        console.log(resp)
         login(resp.data)
         history.push('/home')
       })
       .catch(err => {
-        console.log(err.response)
         Object.entries(err.response.data.errors).forEach(([errorField, errorMessage]) => {
           setError(errorField, { message: errorMessage })
         })
