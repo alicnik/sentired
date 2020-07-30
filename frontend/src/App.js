@@ -6,6 +6,7 @@ import Register from './components/Register'
 import Login from './components/Login'
 import Home from './components/Home'
 import Account from './components/Account'
+import ErrorBoundary from './components/ErrorBoundary'
 
 import NavBar from './components/NavBar'
 import { UserProvider } from './components/UserContext'
@@ -22,19 +23,21 @@ const App = () => (
       <ApiProvider>
         <StyleProvider>
           <GlobalStyle />
-          <NavBar />
-          <Switch>
-            <Route exact path="/" component={Welcome} />
-            <FormMaterialProvider>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <MaterialProvider>
-                <Route exact path="/home" component={Home} />
-                <Route exact path="/account" component={Account} />
-                <Route path="/posts/:redditId" component={Post} />
-              </MaterialProvider>
-            </FormMaterialProvider>
-          </Switch>
+          <ErrorBoundary>
+            <NavBar />
+            <Switch>
+              <Route exact path="/" component={Welcome} />
+              <FormMaterialProvider>
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                <MaterialProvider>
+                  <Route exact path="/home" component={Home} />
+                  <Route exact path="/account" component={Account} />
+                  <Route path="/posts/:redditId" component={Post} />
+                </MaterialProvider>
+              </FormMaterialProvider>
+            </Switch>
+          </ErrorBoundary>
         </StyleProvider>
       </ApiProvider>
     </UserProvider>
