@@ -80,6 +80,10 @@ def get_one(reddit_id):
         user.save()
         return post_schema.jsonify(new_post)
     user.viewed_posts.append(post)
+    user.user_sentiments.append(post.sentiment)
+    if post.reddit_comments:
+        for comment in post.reddit_comments:
+            user.user_sentiments.append(comment.sentiment)
     if post.sentireddit_comments:
         for comment in post.sentireddit_comments:
             user.user_sentiments.append(comment.sentiment)
