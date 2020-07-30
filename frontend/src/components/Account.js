@@ -64,29 +64,28 @@ const Account = () => {
     margin: 0;
   `
   const H3 = styled.h3`
+    display: inline;
     text-align: center;
     text-transform: uppercase;
     font-size: clamp(1.5rem, 4vw, 3rem);
+    margin-right: 0.7rem;
 
   `
-  const Visibility = styled.div`
+  const HistoryAndSavedHeader = styled.header`
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-evenly;
-    border: 5px solid #fafafa;
-    padding: 1rem;
     margin-bottom: 1rem;
+    padding: 1rem;
+  
   `
-
-  const Saved = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  border: 5px solid #fafafa;
-  padding: 1rem;
-  margin-bottom: 1rem;
-`
-
+  const HistoryAndSaved = styled.section`
+    border: 1px solid #fafafa;
+    border-radius: ${styleTheme.borderRadius};
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  `
 
   return (
     <Main>
@@ -101,16 +100,20 @@ const Account = () => {
           </IconButton>
         </FlexInner>
       </FlexOuter>
-      <Visibility>
-        <H3>Viewed Posts</H3>
-        <VisibilityRoundedIcon style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }} />
-      </Visibility>
-      {user.viewed_posts?.map((post, i) => <RedditPostCard key={i} post={post} />)}
-      <Saved>
-        <H3>Saved Posts</H3>
-        <BookmarkBorderIcon style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }} />
-      </Saved>
-      {user.saved_posts?.map((post, i) => <RedditPostCard key={i} post={post} />)}
+      <HistoryAndSaved>
+        <HistoryAndSavedHeader>
+          <H3>Viewed Posts</H3>
+          <VisibilityRoundedIcon style={{ fontSize: 'clamp(1rem, 6vw, 4rem)' }} />
+        </HistoryAndSavedHeader>
+        {user.viewed_posts?.map((post, i) => <RedditPostCard key={i} post={post} />)}
+      </HistoryAndSaved>
+      <HistoryAndSaved>
+        <HistoryAndSavedHeader>
+          <H3>Saved Posts</H3>
+          <BookmarkBorderIcon style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }} />
+        </HistoryAndSavedHeader>
+        {user.saved_posts?.map((post, i) => <RedditPostCard key={i} post={post} />)}
+      </HistoryAndSaved>
       <Modal
         open={open}
         onClose={handleClose}

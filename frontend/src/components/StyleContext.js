@@ -13,9 +13,9 @@ export const StyleProvider = ({ children }) => {
     angry: '#400000',
     sad: '#0071B6',
     neutral: '#b5b7bb',
-    happy: '#e1ad01',
-    ecstatic: '#4CBB17'
-  }
+    happy: ' #4CBB17',
+    ecstatic: '#e1ad01'
+  } 
 
   const fonts = {
     angry: '"Comic Sans", sans-serif',
@@ -25,7 +25,7 @@ export const StyleProvider = ({ children }) => {
     ecstatic: '"Concert One", cursive'
 
   }
-
+  
   const borderRadii = {
     angry: '1px',
     sad: '2px',
@@ -38,24 +38,24 @@ export const StyleProvider = ({ children }) => {
     angry: '#6E0A1E',
     sad: '#003366',
     neutral: '#8f877c',
-    happy: '#eed971ff',
-    ecstatic: 'green'
+    happy: 'green',
+    ecstatic: '#eed971ff'
   }
 
   const backgrounds = {
     angry: '#ca2613',
     sad: '#225b7c',
     neutral: '#626665',
-    happy: '#fef248',
-    ecstatic: '#5aa15c'
+    happy: '#5aa15c',
+    ecstatic: '#fef248'
   }
 
   const headerColours = {
     angry: '#F98B88',
     sad: '#aec6cf',
     neutral: 'lightgrey',
-    happy: '#ffffbf',
-    ecstatic: '#defde0'
+    happy: ' #defde0',
+    ecstatic: '#ffffbf'
   }
 
   const theme = {
