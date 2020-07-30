@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { UserContext } from './UserContext'
-import styled, {ThemeContext as StyleContext} from 'styled-components'
+import styled, { ThemeContext as StyleContext } from 'styled-components'
 
 import { IconButton, Modal } from '@material-ui/core'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
@@ -76,7 +76,7 @@ const Account = () => {
         <Image src={emojis[user.emotion]} alt={user.emotion} />
         <FlexInner>
           <H1>{user.username}</H1>
-          <H2>{Math.round(user.aggregate_sentiment * 100)}</H2>
+          <H2>{user.aggregate_sentiment && Math.round(user.aggregate_sentiment * 100)}</H2>
           <IconButton onClick={handleOpen}>
             <HelpOutlineIcon />
           </IconButton>

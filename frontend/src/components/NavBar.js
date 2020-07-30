@@ -4,7 +4,6 @@ import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { ThemeContext as StyleContext } from 'styled-components'
 import { UserContext } from './UserContext'
 import ProgressBar from './ProgressBar'
-import styled from 'styled-components'
 import Ufo from '../assets/ufo.svg'
 
 const NavBar = () => {
@@ -18,7 +17,6 @@ const NavBar = () => {
   const open = Boolean(anchorEl)
 
   const handleMenu = (event) => {
-    console.log(event.currentTarget)
     setAnchorEl(event.currentTarget)
   }
 
@@ -32,23 +30,23 @@ const NavBar = () => {
     history.push('/')
   }
 
-  const Header = styled.header`
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 1rem;
-    background-color: #fafafa;
-    margin-bottom: 1rem;
-    width: calc(100vw - 2rem);
-    transform: translate(-2rem, -1rem);
-    border-bottom: 5px solid ${styleTheme.borderColour}
-  `
+  const styles = {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    padding: '1rem',
+    backgroundColor: '#fafafa',
+    marginBottom: '1rem',
+    width: 'calc(100vw - 2rem)',
+    transform: 'translate(-2rem, -1rem)',
+    borderBottom: `5px solid ${styleTheme.borderColour}`
+  }
 
   if (noNavPages.includes(pathname)) return null
 
   return (
 
-    <Header>
+    <header style={styles}>
       <ProgressBar />
       <div>
         <IconButton
@@ -63,15 +61,7 @@ const NavBar = () => {
         <Menu
           id="menu-appbar"
           anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
           keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
           open={open}
           onClose={handleClose}
         >
@@ -86,7 +76,7 @@ const NavBar = () => {
           <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
         </Menu>
       </div>
-    </Header>
+    </header>
 
   )
 }

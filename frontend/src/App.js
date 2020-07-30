@@ -14,17 +14,18 @@ import Post from './components/Post'
 import GlobalStyle from './components/GlobalStyle'
 import { StyleProvider } from './components/StyleContext'
 import { MaterialProvider } from './components/MaterialContext'
+import { FormMaterialProvider } from './components/FormContext'
 
-const App = () => {
-  return (
-    <HashRouter>
-      <UserProvider>
-        <ApiProvider>
-          <StyleProvider>
-            <GlobalStyle />
-            <NavBar />
-            <Switch>
-              <Route exact path="/" component={Welcome} />
+const App = () => (
+  <HashRouter>
+    <UserProvider>
+      <ApiProvider>
+        <StyleProvider>
+          <GlobalStyle />
+          <NavBar />
+          <Switch>
+            <Route exact path="/" component={Welcome} />
+            <FormMaterialProvider>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <MaterialProvider>
@@ -32,13 +33,14 @@ const App = () => {
                 <Route exact path="/account" component={Account} />
                 <Route path="/posts/:redditId" component={Post} />
               </MaterialProvider>
-            </Switch>
-          </StyleProvider>
-        </ApiProvider>
-      </UserProvider>
-    </HashRouter>
-  )
-}
+            </FormMaterialProvider>
+          </Switch>
+        </StyleProvider>
+      </ApiProvider>
+    </UserProvider>
+  </HashRouter>
+)
+
 
 export default App
 
