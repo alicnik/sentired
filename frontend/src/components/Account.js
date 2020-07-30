@@ -16,7 +16,7 @@ import RedditPostCard from './RedditPostCard'
 const Account = () => {
 
   const { user } = useContext(UserContext)
-  // const styleTheme = useContext(StyleContext)
+  const styleTheme = useContext(StyleContext)
   const [open, setOpen] = React.useState(false)
   const emojis = { angry, happy, sad, neutral, ecstatic }
 

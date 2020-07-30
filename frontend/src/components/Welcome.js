@@ -44,7 +44,7 @@ const Welcome = () => {
     align-items: center;
     max-width: 50%;
     background-color: #000;
-    padding: 1rem;
+    padding-top: 1rem;
     font-size: clamp(1.2rem, 2.5vw, 2rem);
     outline: none !important;
     border-radius: 50px;
@@ -53,7 +53,7 @@ const Welcome = () => {
    `
   
   const H1 = styled.h1`
-     margin: auto;
+     margin: 6vh auto auto;
      padding: 1rem;
      text-align: center;
      font-size: clamp(4rem, 5vw, 8rem);
@@ -64,12 +64,14 @@ const Welcome = () => {
   const H2 = styled.h2`
     margin: 0.2rem 0rem 0.2rem 0rem;
     border-bottom: 1px solid #FF4500;
+    padding-bottom: 1rem;
     text-align: center;
     width: 100%;
     
   `
   const Paragraph = styled.p`
     text-align: center;
+    padding: 0 1rem 0.8rem;
 
       
  `
