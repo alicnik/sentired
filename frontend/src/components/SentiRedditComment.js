@@ -6,13 +6,14 @@ import { UserContext } from './UserContext'
 import IconButton from '@material-ui/core/IconButton'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
-
+import styled, { ThemeContext as StyleContext } from 'styled-components'
 
 
 const SentiRedditComment = ({ comment, token, redditId, setPostWithComments }) => {
 
   const [updatedComment, setUpdatedComment] = useState(comment.body)
   const [isEditing, setIsEditing] = useState(false)
+  const styleTheme = useContext(StyleContext)
   const { user } = useContext(UserContext)
 
   const editComment = () => {
@@ -39,6 +40,7 @@ const SentiRedditComment = ({ comment, token, redditId, setPostWithComments }) =
       })
       .catch(err => console.log(err))
   }
+  
 
   return (
     <Card>
@@ -68,22 +70,34 @@ const SentiRedditComment = ({ comment, token, redditId, setPostWithComments }) =
         }
       />
       <CardContent>
-        <p>{comment.body}</p>
-      </CardContent>
-      {isEditing &&
-        <>
-          <input
+        {isEditing ?
+          <>
+          <StyledInput
             name="text"
-            onChange={(event) => setUpdatedComment(event.target.value)}
-            placeholder="Edit comment"
+            onChange={(e) => setUpdatedComment(e.target.value)}
+            placeholder={comment.body}
             value={updatedComment}
+            required={true}
+            styleTheme={styleTheme}
           />
-          <button onClick={editComment}>Submit</button>
-        </>
-      }
+          <StyledButton styleTheme={styleTheme} onClick={editComment}>Update</StyledButton>
+        </> :
+          <p>{comment.body}</p>
+        }
+      </CardContent>
     </Card>
   )
 }
 
 export default SentiRedditComment
 
+const StyledInput = styled.input`
+    padding: 1rem 4rem 1rem 2rem;
+    margin-right: 1rem;
+    border-radius: ${props => props.styleTheme.borderRadius};
+`
+
+const StyledButton = styled.button`
+  padding: 0.5rem 1rem;
+  border-radius: ${props => props.styleTheme.borderRadius};
+`

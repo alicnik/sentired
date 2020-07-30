@@ -13,7 +13,7 @@ const RedditComment = ({ comment }) => {
         title={comment.reddit_author}
         subheader={moment(comment.reddit_created_at).fromNow()}
       />
-      <CardContent>
+      <CardContent style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
         <ReactMarkdown source={comment.body} />
       </CardContent>
     </Card>

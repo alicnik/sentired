@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { ApiContext } from './ApiContext'
 import styled from 'styled-components'
 
@@ -14,7 +14,7 @@ import CategoryCarousel from './CategoryCarousel'
 
 const Home = () => {
 
-  const searchValue = useRef('')
+  const [searchValue, setSearchValue] = useState('')
   const [category, setCategory] = useState('hot')
   const [redditPosts, setRedditPosts] = useState([])
   const redditToken = useContext(ApiContext)
@@ -48,34 +48,14 @@ const Home = () => {
       .catch(err => console.log(err))
   }
 
-  const SearchAndFilterDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 1rem;
-
-    div:first-child {
-      width: clamp(250px, 50vw, 500px);
-    }
-
-    @media only screen and (min-width: 1066px) {
-      flex-direction: row;
-      justify-content: space-between;
-
-      div:first-child {
-        width: 350px;
-      }
-    }
-  `
 
   return <main>
     <SearchAndFilterDiv>
       <TextField
-        defaultValue={searchValue.current}
+        value={searchValue}
         placeholder="Search..."
         variant="outlined"
-        onChange={e => searchValue.current = e.target.value}
+        onChange={e => setSearchValue(e.target.value)}
         InputProps={{
           endAdornment:
             <InputAdornment position="end">
@@ -101,3 +81,23 @@ const Home = () => {
 export default Home
 
 
+const SearchAndFilterDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    div:first-child {
+      width: clamp(250px, 50vw, 500px);
+    }
+
+    @media only screen and (min-width: 1066px) {
+      flex-direction: row;
+      justify-content: space-between;
+
+      div:first-child {
+        width: 350px;
+      }
+    }
+  `

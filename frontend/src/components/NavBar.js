@@ -4,7 +4,7 @@ import { IconButton, Menu, MenuItem } from '@material-ui/core'
 import { ThemeContext as StyleContext } from 'styled-components'
 import { UserContext } from './UserContext'
 import ProgressBar from './ProgressBar'
-import Ufo from '../assets/ufo.svg'
+import UfoSvg from './UfoSvg'
 
 const NavBar = () => {
   
@@ -55,8 +55,9 @@ const NavBar = () => {
           aria-haspopup="true"
           onClick={handleMenu}
           color="inherit"
+          height="57px"
         >
-          <img src={Ufo} alt="menu" height="57px"/>
+          <UfoSvg height="57px"/>
         </IconButton>
         <Menu
           id="menu-appbar"

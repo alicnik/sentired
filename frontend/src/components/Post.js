@@ -5,6 +5,7 @@ import RedditPostEmbedded from './RedditPostEmbedded'
 import RedditComment from './RedditComment'
 import SentiRedditComment from './SentiRedditComment'
 import { UserContext } from './UserContext'
+import styled, { ThemeContext as StyleContext } from 'styled-components'
 
 const Post = () => {
 
@@ -14,6 +15,7 @@ const Post = () => {
   const [comment, setComment] = useState('')
   const redditId = pathname.match(/posts\/(\w+)$/)[1]
   const token = localStorage.getItem('token')
+  const styleTheme = useContext(StyleContext)
 
 
   useEffect(() => {
@@ -46,7 +48,7 @@ const Post = () => {
   if (postWithComments.length === 0) return null
 
   const addComment = () => {
-    // event.preventDefault()
+    // if (!comment) return
     axios.post(`api/posts/${redditId}/comments`, { body: comment },
       {
         headers: { 'Authorization': `Bearer ${token}` }
@@ -57,6 +59,8 @@ const Post = () => {
       })
       .catch(err => console.log(err))
   }
+
+  
 
   return (
     <main>
@@ -77,15 +81,28 @@ const Post = () => {
           />
         ))}
       </section>
-      <input
+      <StyledInput
         name="text"
-        onChange={(event) => setComment(event.target.value)}
+        onChange={(e) => setComment(e.target.value)}
         placeholder="Comment"
         value={comment}
+        styleTheme={styleTheme}
       />
-      <button onClick={addComment}>Add Comment</button>  
+      <StyledButton styleTheme={styleTheme} onClick={addComment}>Add Comment</StyledButton>  
     </main>
   )
 }
 
 export default Post
+
+const StyledInput = styled.textarea`
+    padding: 1rem 4rem 1rem 2rem;
+    margin-bottom: 1rem;
+    border-radius: ${props => props.styleTheme.borderRadius};
+    display: block;
+    `
+    
+const StyledButton = styled.button`
+    padding: 0.5rem 1rem;
+    border-radius: ${props => props.styleTheme.borderRadius};
+  `
