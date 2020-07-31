@@ -22,9 +22,11 @@ const Home = () => {
 
   useEffect(() => {
     setLoading(true)
-    axios.get(`https://oauth.reddit.com/${category}`,
+    axios.get(`https://cors-anywhere.herokuapp.com/https://oauth.reddit.com/${category}`,
       {
-        headers: { 'Authorization': `Bearer ${redditToken}` }
+        headers: { 'Authorization': `Bearer ${redditToken}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       })
       .then(res => {
         setRedditPosts(res.data.data.children)
@@ -37,9 +39,11 @@ const Home = () => {
 
   const handleSearch = () => {
     setLoading(true)
-    axios.get(`https://oauth.reddit.com/search?q=${searchValue}`,
+    axios.get(`https://cors-anywhere.herokuapp.com/https://oauth.reddit.com/search?q=${searchValue}`,
       {
-        headers: { 'Authorization': `Bearer ${redditToken}` }
+        headers: { 'Authorization': `Bearer ${redditToken}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       })
       .then(res => {
         setRedditPosts(res.data.data.children)
