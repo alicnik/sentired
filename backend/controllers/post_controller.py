@@ -146,3 +146,4 @@ def analyse_post_and_comments(reddit_id):
     user.save()
     post.save()
     return post_schema.jsonify(post), 200
+

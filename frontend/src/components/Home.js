@@ -17,34 +17,24 @@ const Home = () => {
   const [searchValue, setSearchValue] = useState('')
   const [category, setCategory] = useState('hot')
   const [redditPosts, setRedditPosts] = useState([])
-  const redditToken = useContext(ApiContext)
   const [loading, setLoading] = useState(true)
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     setLoading(true)
-    axios.get(`https://cors-anywhere.herokuapp.com/https://oauth.reddit.com/${category}`,
-      {
-        headers: { 'Authorization': `Bearer ${redditToken}`,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
+    axios.get(`/api/home/${category}`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(res => {
         setRedditPosts(res.data.data.children)
         setLoading(false)
       })
       .catch(err => console.log(err))
-  }, [category, redditToken])
+  }, [category, token])
 
   const handleCategory = (e) => setCategory(e.target.value)
 
   const handleSearch = () => {
     setLoading(true)
-    axios.get(`https://cors-anywhere.herokuapp.com/https://oauth.reddit.com/search?q=${searchValue}`,
-      {
-        headers: { 'Authorization': `Bearer ${redditToken}`,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
+    axios.get(`/api/home/search/${searchValue}`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(res => {
         setRedditPosts(res.data.data.children)
         setLoading(false)
