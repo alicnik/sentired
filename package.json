@@ -1,7 +1,7 @@
 {
   "scripts": {
     "serve": "webpack-dev-server --mode=development",
-    "build": "pipenv install; npm i; webpack -p; pipenv run python seed.py",
+    "build": "pipenv install; npm i; webpack -p; pipenv run python backend/seed.py",
     "serve:react": "webpack-dev-server",
     "serve:flask": "pipenv run flask run"
   },
