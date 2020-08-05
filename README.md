@@ -4,6 +4,8 @@
 
 An app that uses language sentiment analysis to measure the degree of postiivity or negativity to which a user is exposed on a popular social news website. The results are displayed via emotional UI changes rendered in real time.
 
+[Try it out.](https://sentired.herokuapp.com)
+
 ## Table of Contents
 
 1. [Brief](https://github.com/alicnik/sentired#brief)
@@ -17,11 +19,20 @@ An app that uses language sentiment analysis to measure the degree of postiivity
 
 ## Brief
 
+Create a full-stack application with its own front end and back end. Use a Python Flask API with a REST framework to serve data from a Postgres database. Consume the API with a React front end. Create a complete product with multiple relationships and CRUD functionality. Implement thoughtful user stories and have a visually impressive design. Deploy online so it's publicly accessible.
+
 ## Approach
 
 ### MVP
 
 ### Technologies
+
+We were keen to work more with some libraries we had previously used and also to introduce some new ones. Highlights are:
+
+- [Material UI](https://github.com/mui-org/material-ui)
+- [Styled Components](https://github.com/styled-components/styled-components)
+- [React Hook Form](https://github.com/react-hook-form/react-hook-form)
+- [Yup](https://github.com/jquense/yup)
 
 ### Methodologies
 
@@ -46,8 +57,4 @@ An app that uses language sentiment analysis to measure the degree of postiivity
 ## Challenges
 
 
-
-PAIR PROGRAMMED THROUGHOUT
-
-MATERIAL UI IMPORTS USING DEFAULT INSTEAD OF NAMED, BETTER PERFORMANCE ACCORDING TO DOCS
 

@@ -83,7 +83,7 @@ const Welcome = () => {
 
   return <main style={{ height: '100%', width: '100%' }}>
     <Container>
-      <H1>SentiReddit</H1>
+      <H1>SentiRed</H1>
       <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 171" style={{ maxWidth: 400, maxHeight: 400 }}>
         <g id="Artwork">
           <circle fill="#ff4500" cx="85.5" cy="85.5" r="85.5" />
