@@ -7,11 +7,11 @@ An app that uses language sentiment analysis to measure the degree of postiivity
 ## Table of Contents
 
 1. [Brief](https://github.com/alicnik/sentired#brief)
-2. Approach
-       - MVP
-       - Technologies
-       - Methodologies
-3. Planning
+2. [Approach](https://github.com/alicnik/sentired#brief)
+       - [MVP](https://github.com/alicnik/sentired#mvp)
+       - [Technologies](https://github.com/alicnik/sentired#technologies)
+       - [Methodologies](https://github.com/alicnik/sentired#methodologies)
+3. [Planning](https://github.com/alicnik/sentired#planning)
        - Back End
        - Front End
 
@@ -31,11 +31,13 @@ An app that uses language sentiment analysis to measure the degree of postiivity
 
 #### Entity Relationship Diagram
 
+![Entity Relationship Diagram](https://github.com/alicnik/sentired/blob/master/readme_files/erd.png)
+
 ### Front End
 
 #### UX Wireframe
 
-![Figma Wireframe]()
+![Figma Wireframe](https://github.com/alicnik/sentired/blob/master/readme_files/wireframe.png)
 
 [Protoype walkthrough](https://www.figma.com/proto/qMXz70ReXQMZww9bNPr2C8/SentiRed-Wireframe?node-id=1%3A52&viewport=611%2C495%2C0.24284692108631134&scaling=scale-down)
 
