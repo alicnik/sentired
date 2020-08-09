@@ -22,7 +22,3 @@ class Sentiment(db.Model, BaseModel):
     sentireddit_comment_id = db.Column(db.Integer, db.ForeignKey('sentireddit_comments.id', ondelete='SET NULL'))
     reddit_comment_id = db.Column(db.Integer, db.ForeignKey('reddit_comments.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
-
-    # sentireddit_comment = db.relationship('SentiRedditComment', back_populates='sentiment')
-    # post = db.relationship('Post', back_populates='sentiment')
-    # reddit_comment = db.relationship('RedditComment', back_populates='sentiment')

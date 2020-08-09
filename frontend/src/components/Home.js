@@ -1,16 +1,37 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { ApiContext } from './ApiContext'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import SearchIcon from '@material-ui/icons/Search'
 import IconButton from '@material-ui/core/IconButton'
-import RedditPostCard from './RedditPostCard'
-import LoadingCard from './LoadingCard'
 
-import axios from 'axios'
+import LoadingCard from './LoadingCard'
+import RedditPostCard from './RedditPostCard'
 import CategoryCarousel from './CategoryCarousel'
+
+
+const SearchAndFilterDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    div:first-child {
+      width: clamp(250px, 50vw, 500px);
+    }
+
+    @media only screen and (min-width: 1066px) {
+      flex-direction: row;
+      justify-content: space-between;
+
+      div:first-child {
+        width: 350px;
+      }
+    }
+  `
 
 const Home = () => {
 
@@ -75,23 +96,3 @@ const Home = () => {
 export default Home
 
 
-const SearchAndFilterDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 1rem;
-
-    div:first-child {
-      width: clamp(250px, 50vw, 500px);
-    }
-
-    @media only screen and (min-width: 1066px) {
-      flex-direction: row;
-      justify-content: space-between;
-
-      div:first-child {
-        width: 350px;
-      }
-    }
-  `

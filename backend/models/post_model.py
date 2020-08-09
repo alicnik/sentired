@@ -13,7 +13,7 @@ class Post(db.Model, BaseModel):
     reddit_author = db.Column(db.String(120), nullable=True)
     reddit_author_avatar = db.Column(db.Text, nullable=True)
     reddit_created_at = db.Column(db.DateTime)
-    # ? Here we like the relationships for the post. As we want to display one sentiment
+    # ? Here we link the relationships for the post. As we want to display one sentiment
     # ? on each post, we pass uselist=False when we instantiate the relationship.
     # ? For consistency, we define the relationships on the parent (i.e. here) and link the ids on
     # ? the child model.

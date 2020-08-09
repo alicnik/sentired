@@ -20,7 +20,7 @@ with app.app_context():
 
     alex = User(
         username="alicnik",
-        email="alicnik@hotmail.com",
+        email="alicnik@alicnik.com",
         password="Alicnik123"
     )
 

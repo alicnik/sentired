@@ -8,13 +8,6 @@ from datetime import *
 import jwt
 from lib.helpers import random_cage
 
-# user_sentiments = db.Table(
-#     'user_sentiments',
-#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-#     db.Column('sentiment_id', db.Integer, db.ForeignKey('sentiments.id'), primary_key=True)
-# )
-
-
 class User(db.Model, BaseModel):
     __tablename__ = 'users'
 
@@ -53,5 +46,3 @@ class User(db.Model, BaseModel):
         }
         token = jwt.encode(payload, secret, 'HS256').decode('utf-8')
         return token
-
-        # hybrid property for aggregate_sentiment that analyses the user_sentiments join table for an aggregate score?
