@@ -44,7 +44,7 @@ const Login = () => {
 
   return (
     <main style={{ overflow: 'hidden' }}>
-      <StyledH2>LOG &nbsp;IN</StyledH2>
+      <StyledH2>LOG IN</StyledH2>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <TextField
           name="email"
