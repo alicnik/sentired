@@ -48,6 +48,7 @@ export const StyledH2 = styled.h2`
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
+  width: max-content;
 `
 
 const Register = () => {

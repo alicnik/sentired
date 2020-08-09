@@ -614,6 +614,8 @@ The Google Natural Language API documentation contained a small library for use 
 
 On deployment, we discovered that our API calls from the front end to the Reddit API were failing and needed to be rewritten. We decided to run all calls through our back end for the sake of consistency. While this last-minute change was a surprise (we had had no problems during development), the solution led to better alignment of our routes.
 
+In addition, the styling of our register and login forms appeared to be broken. While the mix-blend-mode had worked on desktop, including in the "mobile" environment in Chrome dev tools, when actually viewed on a mobile device, the form and title on both the register and login pages could not be seen. The different behaviour on mobile and desktop made this a challenging problem to overcome, however eventually it became clear that the z-indexing of absolutely positioned elements mixed with non-absolutely positioned elements on mobile was to blame.
+
 While pair programming is often said to be slower than solo development, it led to a much deeper understanding of the code and much less debugging. An interesting trade-off and we were pleased to have maintained our commitment to pair programming throughout.
 
 
