@@ -14,6 +14,7 @@ transform: translate(-50%);
 mix-blend-mode: difference;
 filter: grayscale(100%);
 object-fit: cover;
+z-index: 1;
 `
 
 export const BackgroundVideo = () => {

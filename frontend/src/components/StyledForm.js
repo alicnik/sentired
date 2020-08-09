@@ -14,6 +14,8 @@ const Form = styled.form`
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  mix-blend-mode: difference;
+  z-index: 2;
 `
 
 export const StyledForm = (props) => {

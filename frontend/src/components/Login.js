@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { StyledForm } from './StyledForm'
 import { BackgroundVideo } from './BackgroundVideo'
+import { StyledH2 } from './Register'
 
 const schema = Yup.object().shape({
   email: Yup.string().email('Please enter a valid email address').required('Please enter your email address'),
@@ -43,15 +44,7 @@ const Login = () => {
 
   return (
     <main style={{ overflow: 'hidden' }}>
-      <h2 style={{
-        fontSize: '4rem',
-        color: 'white',
-        margin: '0 auto',
-        textAlign: 'center',
-        lineHeight: '30vh',
-        letterSpacing: '0.1rem',
-        fontFamily: '"Nanum Myeongjo", serif'
-      }}>LOG &nbsp;IN</h2>
+      <StyledH2>LOG &nbsp;IN</StyledH2>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <TextField
           name="email"
