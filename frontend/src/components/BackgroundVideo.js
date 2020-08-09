@@ -19,7 +19,7 @@ object-fit: cover;
 export const BackgroundVideo = () => {
 
   return (
-    <Video autoPlay muted loop playsinline>
+    <Video autoPlay muted loop playsInline>
       <source src={rorschach} type="video/mp4" />
     </Video>
   )
