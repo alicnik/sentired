@@ -12,12 +12,12 @@ We would recommend registering for your own account as your sentiment will start
 
 1. [Brief](https://github.com/alicnik/sentired#brief)
 2. [Approach](https://github.com/alicnik/sentired#brief)
-       - [MVP](https://github.com/alicnik/sentired#mvp)
-       - [Technologies](https://github.com/alicnik/sentired#technologies)
-       - [Methodologies](https://github.com/alicnik/sentired#methodologies)
+   - [MVP](https://github.com/alicnik/sentired#mvp)
+   - [Technologies](https://github.com/alicnik/sentired#technologies)
+   - [Methodologies](https://github.com/alicnik/sentired#methodologies)
 3. [Planning](https://github.com/alicnik/sentired#planning)
-       - [Back End](https://github.com/alicnik/sentired#back-end)
-       - [Front End](https://github.com/alicnik/sentired#front-end)
+   - [Back End](https://github.com/alicnik/sentired#back-end)
+   - [Front End](https://github.com/alicnik/sentired#front-end)
 4. [Responsibilities](https://github.com/alicnik/sentired#responsibilities)
 5. [Challenges](https://github.com/alicnik/sentired#challenges)
 6. [Key Learnings](https://github.com/alicnik/sentired#key-learnings)
@@ -630,7 +630,7 @@ At a functional level, this was excellent experience with Material UI and styled
 
 ## Conclusions
 
-Perhaps the most interesting conclusion was regarding the current limitations of Artificial Intelligence in the area of language analysis. Subtext, sarcasm, and subtlety could easily tip the sentiment analysis in the wrong direction—at present, it is something of a blunt tool. That being said, the analysis was, broadly speaking, quite reliable. During testing, we could be fairly certain that a story about Donald Trump or COVID-19 would contain negative sentiment and that a story about puppies or kittens would contain positive sentiment. This is an area I will be watching with great interest as it evolves.
+Perhaps the most interesting conclusion was regarding the current limitations of machine learning in the area of language analysis. Subtext, sarcasm, and subtlety could easily tip the sentiment analysis in the wrong direction—at present, it is something of a blunt tool. That being said, the analysis was, broadly speaking, quite reliable. During testing, we could be fairly certain that a story about Donald Trump or COVID-19 would contain negative sentiment and that a story about puppies or kittens would contain positive sentiment. This is an area I will be watching with great interest as it evolves.
 
 
 ## Future
