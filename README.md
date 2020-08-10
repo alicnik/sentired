@@ -88,7 +88,7 @@ We devoted a good portion of our initial planning to developing our models and r
 
 #### Entity Relationship Diagram
 
-![Entity Relationship Diagram](https://github.com/alicnik/sentired/blob/master/readme_files/erd.png)
+![Entity Relationship Diagram](./readme_files/erd.png)
 
 
 #### The Sentiment Model:
