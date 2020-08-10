@@ -268,7 +268,7 @@ The front end was developed using React, Material UI, styled-components and reac
 
 #### UX Wireframe
 
-![Figma Wireframe](https://github.com/alicnik/sentired/blob/master/readme_files/wireframe.png)
+![Figma Wireframe](./readme_files/wireframe.png)
 
 [Protoype walkthrough](https://www.figma.com/proto/qMXz70ReXQMZww9bNPr2C8/SentiRed-Wireframe?node-id=1%3A52&viewport=611%2C495%2C0.24284692108631134&scaling=scale-down)
 
