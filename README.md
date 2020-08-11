@@ -85,7 +85,7 @@ We devoted a good portion of our initial planning to developing our models and r
 
 #### Entity Relationship Diagram
 
-![Entity Relationship Diagram](https://github.com/alicnik/sentired/blob/master/readme_files/erd.png)
+![Entity Relationship Diagram](./readme_files/erd.png)
 
 #### The Sentiment Model:
 
@@ -259,7 +259,7 @@ The front end was developed using React, Material UI, styled-components and reac
 
 #### UX Wireframe
 
-![Figma Wireframe](https://github.com/alicnik/sentired/blob/master/readme_files/wireframe.png)
+![Figma Wireframe](./readme_files/wireframe.png)
 
 [Prototype walkthrough](https://www.figma.com/proto/qMXz70ReXQMZww9bNPr2C8/SentiRed-Wireframe?node-id=1%3A52&viewport=611%2C495%2C0.24284692108631134&scaling=scale-down)
 
@@ -624,7 +624,7 @@ At a functional level, this was excellent experience with Material UI and styled
 
 ## Conclusions
 
-Perhaps the most interesting conclusion was regarding the current limitations of Artificial Intelligence in the area of language analysis. Subtext, sarcasm, and subtlety could easily tip the sentiment analysis in the wrong direction—at present, it is something of a blunt tool. That being said, the analysis was, broadly speaking, quite reliable. During testing, we could be fairly certain that a story about Donald Trump or COVID-19 would contain negative sentiment and that a story about puppies or kittens would contain positive sentiment. This is an area I will be watching with great interest as it evolves.
+Perhaps the most interesting conclusion was regarding the current limitations of machine learning in the area of language analysis. Subtext, sarcasm, and subtlety could easily tip the sentiment analysis in the wrong direction—at present, it is something of a blunt tool. That being said, the analysis was, broadly speaking, quite reliable. During testing, we could be fairly certain that a story about Donald Trump or COVID-19 would contain negative sentiment and that a story about puppies or kittens would contain positive sentiment. This is an area I will be watching with great interest as it evolves.
 
 ## Future
 
