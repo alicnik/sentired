@@ -2,11 +2,11 @@
 
 # SentiRed
 
-Most popular news algorithms today offer up news that triggers an emotional response. This is true of print and online media. Who among us has never read an article that made them angry, or happy? What if there was a way to measure the negativity or positivity you'd been exposed to so you had visual cues for your emotions? These questions led [Kianna Love](https://github.com/akirakianna) and I to build [SentiRed](https://sentired.herokuapp.com), an app that uses language sentiment analysis to measure the degree of postiivity or negativity to which a user is exposed on a popular social news website. The results are displayed via emotional UI changes (i.e. colour, font and border radius) rendered in real time.
+Most popular news algorithms today offer up news that triggers an emotional response. This is true of print and online media. Who among us has never read an article that made them angry, or happy? What if there was a way to measure the negativity or positivity you'd been exposed to so you had visual cues for your emotions? These questions led [Kianna Love](https://github.com/akirakianna) and I to build [SentiRed](https://sentired.herokuapp.com), an app that uses language sentiment analysis to measure the degree of positivity or negativity to which a user is exposed on a popular social news website. The results are displayed via emotional UI changes (i.e. colour, font and border radius) rendered in real time.
 
 [Try it out.](https://sentired.herokuapp.com)
 
-We would recommend registering for your own account as your sentiment will start at netural, which makes for a better experience.
+We would recommend registering for your own account as your sentiment will start at neutral, which makes for a better experience.
 
 ## Table of Contents
 
@@ -176,7 +176,7 @@ def get_one(reddit_id):
 
 As we wanted to track all sentiments a user had been exposed to, this was a secure route that required the user to be logged in. If the post was not already in our database, we used the PRAW library `.request` method, which proved more reliable with regard to authentication and sidestepped the need to refresh the token for the Reddit API, to obtain the post contents and its comments. (Conveniently this information exists on one endpoint on the Reddit API.)
 
-We discovered that there was some inconsistency in where media was stored in the API response. The majority of the time, if there was a picture, it was on the `url` key, however the `url` key value could also be a link to a news story. From there, various other options could be extant on the response, but the inconsistency required a number of fallbacks. As a final fallback, instead of a generic placeholder, we used the excellent [PlaceCage API](https://www.placecage.com/) to provide media where none existsed.
+We discovered that there was some inconsistency in where media was stored in the API response. The majority of the time, if there was a picture, it was on the `url` key, however the `url` key value could also be a link to a news story. From there, various other options could be extant on the response, but the inconsistency required a number of fallbacks. As a final fallback, instead of a generic placeholder, we used the excellent [PlaceCage API](https://www.placecage.com/) to provide media where none existed.
 
 The response time for the Reddit API could be over 2 seconds, so we determined that for reasons of UX it would be best to do the Google Natural Language API calls in a separate route. Accordingly, sentiment is only added to the user if the post is already in the database.
 
@@ -261,7 +261,7 @@ The front end was developed using React, Material UI, styled-components and reac
 
 ![Figma Wireframe](https://github.com/alicnik/sentired/blob/master/readme_files/wireframe.png)
 
-[Protoype walkthrough](https://www.figma.com/proto/qMXz70ReXQMZww9bNPr2C8/SentiRed-Wireframe?node-id=1%3A52&viewport=611%2C495%2C0.24284692108631134&scaling=scale-down)
+[Prototype walkthrough](https://www.figma.com/proto/qMXz70ReXQMZww9bNPr2C8/SentiRed-Wireframe?node-id=1%3A52&viewport=611%2C495%2C0.24284692108631134&scaling=scale-down)
 
 #### Register Form
 

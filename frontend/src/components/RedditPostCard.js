@@ -39,7 +39,7 @@ const RedditPostCard = ({ post, loading = false }) => {
             (<Skeleton height={10} width="30%" style={{ marginBottom: 6 }} />) :
             (post.author || post.reddit_author)}
         />
-        <CardContent>
+        <CardContent style={loading ? { flexDirection: 'column', justifyContent: 'space-around', alignItems: 'flex-start' } : null}>
           { loading ?
             (<Skeleton variant="rect" width="40%" height="150px" style={{ float: 'left' }}/>) :
             ( (post.thumbnail?.includes('.') || typeof post.media === 'string') && 
