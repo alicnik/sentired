@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { randomCage } from '../utils/randomCage'
 import Card from '@material-ui/core/Card'
@@ -9,16 +9,17 @@ import CardContent from '@material-ui/core/CardContent'
 import Skeleton from '@material-ui/lab/Skeleton'
 import styled from 'styled-components'
 
-
-const RedditPostCard = ({ post, loading = false }) => {
-  
-  const { pathname } = useLocation()
-
-  const H2 = styled.h2`
+const H2 = styled.h2`
     margin-left: 20px;
     font-size: clamp(1rem, 3vw, 1.5rem);
   `
 
+const RedditPostCard = ({ post, loading = false }) => {
+  
+  const { pathname } = useLocation()
+  
+  const placeholder = useMemo(randomCage, [post])
+  
   // Link uses ternary so that component can be reused on account page where post.id will refer to SQL db, 
   // unlike usage on homepage where reddit API call response will return a reddit identification code for post.id
   
@@ -29,7 +30,7 @@ const RedditPostCard = ({ post, loading = false }) => {
           avatar={
             loading ?
               (<Skeleton variant="circle" width={40} height={40} />) :
-              (<Avatar src={randomCage()} />)
+              (<Avatar src={placeholder} />)
           }
           title={loading ? 
             (<Skeleton height={10} width="30%" style={{ marginBottom: 6 }} />) :

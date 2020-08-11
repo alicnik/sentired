@@ -5,6 +5,10 @@ import comicSansWoff2 from '../fonts/comic-sans.woff2'
 
 export default createGlobalStyle`
 
+    * {
+      box-sizing: border-box;
+    }
+
     @font-face {
         font-family: 'Comic Sans';
         src: local('Comic Sans'), local('ComicSans'),
@@ -16,9 +20,15 @@ export default createGlobalStyle`
 
     body {
       padding: 1rem 2rem;
+      height: 100vh;
       color: ${props => props.theme.color};
       font-family: ${props => props.theme.font};
       background: ${props => props.theme.background};
+    }
+
+    div#root {
+      height: 100%;
+      width: 100%;
     }
 
     a {

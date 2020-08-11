@@ -12,22 +12,20 @@ We would recommend registering for your own account as your sentiment will start
 
 1. [Brief](https://github.com/alicnik/sentired#brief)
 2. [Approach](https://github.com/alicnik/sentired#brief)
-       - [MVP](https://github.com/alicnik/sentired#mvp)
-       - [Technologies](https://github.com/alicnik/sentired#technologies)
-       - [Methodologies](https://github.com/alicnik/sentired#methodologies)
+   - [MVP](https://github.com/alicnik/sentired#mvp)
+   - [Technologies](https://github.com/alicnik/sentired#technologies)
+   - [Methodologies](https://github.com/alicnik/sentired#methodologies)
 3. [Planning](https://github.com/alicnik/sentired#planning)
-       - [Back End](https://github.com/alicnik/sentired#back-end)
-       - [Front End](https://github.com/alicnik/sentired#front-end)
+   - [Back End](https://github.com/alicnik/sentired#back-end)
+   - [Front End](https://github.com/alicnik/sentired#front-end)
 4. [Responsibilities](https://github.com/alicnik/sentired#responsibilities)
 5. [Challenges](https://github.com/alicnik/sentired#challenges)
 6. [Key Learnings](https://github.com/alicnik/sentired#key-learnings)
 7. [Conclusions](https://github.com/alicnik/sentired#conclusions)
 
-
 ## Brief
 
 Create a full-stack application with its own front end and back end. Use a Python Flask API with a REST framework to serve data from a Postgres database. Consume the API with a React front end. Create a complete product with multiple relationships and CRUD functionality. Implement thoughtful user stories and have a visually impressive design. Deploy online so it's publicly accessible.
-
 
 ## Approach
 
@@ -72,15 +70,14 @@ On top of the brief requirements, we were keen to work further with some librari
 
 - Pair program, either using VS Code Live Share or sharing screen and adopting a driver-navigator style;
 - Avoid repetition, keep it DRY, and favour simplicity, per KISS
-- Write *legible* code and eschew clever snippets in favour of more readable code, if applicable
+- Write _legible_ code and eschew clever snippets in favour of more readable code, if applicable
 - Ensure that there is a Single Source of Truth for any one concern
 
 N.B. Pair programming was not a requirement, but we were interested to see what it would be like in the context of a full-stack application.
 
-
 ## Planning
 
-We adopted the Model-View Controller (MVC) framework to separate our concerns. 
+We adopted the Model-View Controller (MVC) framework to separate our concerns.
 
 ### Back End
 
@@ -89,7 +86,6 @@ We devoted a good portion of our initial planning to developing our models and r
 #### Entity Relationship Diagram
 
 ![Entity Relationship Diagram](https://github.com/alicnik/sentired/blob/master/readme_files/erd.png)
-
 
 #### The Sentiment Model:
 
@@ -115,10 +111,9 @@ Since we wanted to faithfully track all sentiments to which a user had been expo
 
 During my reading into Flask SQLAlchemy and Marshmallow, I came across an interesting issue with imports, described [here](https://github.com/marshmallow-code/flask-marshmallow/issues/143). Essentially, Marshmallow schemas, when imported, instantiate Flask SQLAlchemy models. (Importing a model on its own does not exhibit this behaviour.) This can create circular references and result in errors. I was therefore keen to ensure we separated our model and schema modules.
 
-
 #### Single Reddit Post Controller
 
-Perhaps the most thorough logic in the back end was this controller, which checks for the article in our own database, fetching it from Reddit if it is not found. 
+Perhaps the most thorough logic in the back end was this controller, which checks for the article in our own database, fetching it from Reddit if it is not found.
 
 ```
 @router.route('/posts/<reddit_id>', methods=['GET'])
@@ -137,7 +132,7 @@ def get_one(reddit_id):
             reddit_author=data['author'],
             reddit_created_at=datetime.fromtimestamp(data['created_utc'])
         )
-        
+
         if re.search('\.(png|gif|jpe?g|svg)$', data['url']):
             new_post.media = data['url']
         elif 'media' in data and data['media'] and 'reddit_video' in data['media']:
@@ -148,7 +143,7 @@ def get_one(reddit_id):
             new_post.media = data['thumbnail']
         else:
             new_post.media = random_cage()
-            
+
         for comment in submission[1]['data']['children']:
             if 'body' not in comment['data']:
                 continue
@@ -160,12 +155,12 @@ def get_one(reddit_id):
             )
             new_reddit_comment.save()
             new_post.reddit_comments.append(new_reddit_comment)
-            
+
         new_post.save()
         user.viewed_posts.append(new_post)
         user.save()
         return post_schema.jsonify(new_post)
-        
+
     user.viewed_posts.append(post)
     user.user_sentiments.append(post.sentiment)
     if post.reddit_comments:
@@ -184,7 +179,6 @@ As we wanted to track all sentiments a user had been exposed to, this was a secu
 We discovered that there was some inconsistency in where media was stored in the API response. The majority of the time, if there was a picture, it was on the `url` key, however the `url` key value could also be a link to a news story. From there, various other options could be extant on the response, but the inconsistency required a number of fallbacks. As a final fallback, instead of a generic placeholder, we used the excellent [PlaceCage API](https://www.placecage.com/) to provide media where none existsed.
 
 The response time for the Reddit API could be over 2 seconds, so we determined that for reasons of UX it would be best to do the Google Natural Language API calls in a separate route. Accordingly, sentiment is only added to the user if the post is already in the database.
-
 
 #### Google Natural Language API Fetch
 
@@ -225,7 +219,7 @@ def analyse_post_and_comments(reddit_id):
     user = User.query.get(g.current_user.id)
     if not post:
         return jsonify({'message': 'Could not return post'}), 404
-        
+
     sentiment_instance = Sentiment(
         polarity=language_sentiment['score'],
         magnitude=language_sentiment['magnitude'],
@@ -234,7 +228,7 @@ def analyse_post_and_comments(reddit_id):
     )
     sentiment_instance.save()
     user.user_sentiments.append(sentiment_instance)
-    
+
     for comment in post.reddit_comments:
         calls = ApiCalls.query.get(1)
         if calls.count > 4500:
@@ -250,7 +244,7 @@ def analyse_post_and_comments(reddit_id):
         )
         comment_sentiment_instance.save()
         user.user_sentiments.append(comment_sentiment_instance)
-        
+
     calculate_user_aggregate_sentiment(user)
     user.save()
     post.save()
@@ -258,9 +252,6 @@ def analyse_post_and_comments(reddit_id):
 ```
 
 This route analyses a Reddit post's sentiment and the sentiment of its comments. The post sentiment and the sentiment of each of its comments is then saved to the current user.
-
-
-
 
 ### Front End
 
@@ -295,7 +286,7 @@ const StyledForm = styled.form`
   align-items: center;
   min-height: 60vh;
   min-width: 300px;
-  justify-content: space-around;  
+  justify-content: space-around;
   position: absolute;
   top: 60%;
   left: 50%;
@@ -373,6 +364,7 @@ const Register = () => {
 
 }
 ```
+
 It also depends upon custom overrides of the Material UI Theme which are contained in FormContext.js:
 
 ```
@@ -440,6 +432,7 @@ export const FormMaterialProvider = ({ children }) => {
   )
 }
 ```
+
 Since the overrides for the form were designed to allow for used of mix-blend-mode CSS property, a second set of custom overrides was required for the rest of the site, resulting in nested override providers in our App.js:
 
 ```
@@ -472,7 +465,7 @@ const LoadingCard = () => (
       title={<Skeleton height={10} width="60%" style={{ marginBottom: 6 }} />}
       subheader={<Skeleton height={10} width="60%" style={{ marginBottom: 6 }} />}
     />
-    <Skeleton variant="rect" width="40%" height="150px" style={{ float: 'left', marginRight: 10 }}/>  
+    <Skeleton variant="rect" width="40%" height="150px" style={{ float: 'left', marginRight: 10 }}/>
     <CardContent>
       {Array(4).fill(0).map((el, i) => <Skeleton key={i} height={15} width="50%" style={{ marginBottom: 10, overflow: 'hidden' }} />)}
     </CardContent>
@@ -481,6 +474,7 @@ const LoadingCard = () => (
 
 export default LoadingCard
 ```
+
 The skeleton layout was designed to emulate the layout of the populated cards. Once the response is received, cards are populated for the user to browse and choose. There is also a search function and a carousel of categories (hot, new, rising, etc.) available. At this point, no language sentiment analysis is performed, partly due to the fact that the user has no choice in what they see at this point, but also to the API calls cap of the Google Natural Language API. When a user clicks on a story, they are taken to the Post component.
 
 #### Post
@@ -515,13 +509,14 @@ useEffect(() => {
       .catch(err => console.log(err))
   }, [redditId, token])
 ```
+
 First the call for the post itself is made. In the back end, the database is checked for this post and either returns the post if it is already in the database or makes a call to the Reddit API if it is not present. User avatars are, unfortunately, only available from individual user endpoints on the Reddit API, so a series of calls needs to be made. Again, this goes through the back end so that avatars can be stored in the database for faster future retrieval. Finally, the sentiment call is made (after checking to see whether sentiment is already attributed to the post and its comments).
 
 The initial post is then rendered along with the comments on that post. Each comment from a Reddit user is rendered by the RedditComment component. The cards are all Material UI. Formatted content of a Reddit post or comment is saved as markdown, so we used the [react-markdown](https://github.com/rexxars/react-markdown) parser to render the content correctly.
 
 #### SentiRed User Comments
 
-Additional CRUD functionality is contained at the bottom of the Post.js component where registered users of SentiRed are able to leave comments, which are rendered immediately and can be edited/deleted inline. I was keen for UX flow that creating/editing/deleting a comment should not take the user to another page as this disrupts the experience. 
+Additional CRUD functionality is contained at the bottom of the Post.js component where registered users of SentiRed are able to leave comments, which are rendered immediately and can be edited/deleted inline. I was keen for UX flow that creating/editing/deleting a comment should not take the user to another page as this disrupts the experience.
 
 ```
 const SentiRedditComment = ({ comment, token, redditId, setPostWithComments }) => {
@@ -533,8 +528,8 @@ const SentiRedditComment = ({ comment, token, redditId, setPostWithComments }) =
 
   const editComment = () => {
     axios.put(
-      `api/posts/${redditId}/comments/${comment.id}`, 
-      { body: updatedComment }, 
+      `api/posts/${redditId}/comments/${comment.id}`,
+      { body: updatedComment },
       { headers: { 'Authorization': `Bearer ${token}` } }
     )
       .then(res => {
@@ -556,20 +551,20 @@ const SentiRedditComment = ({ comment, token, redditId, setPostWithComments }) =
       <CardHeader
         avatar={<Avatar src={comment.user.avatar} />}
         title={comment.user.username}
-        subheader={comment.created_at !== comment.updated_at ? 
-          `updated ${moment(comment.updated_at).fromNow()}` : 
+        subheader={comment.created_at !== comment.updated_at ?
+          `updated ${moment(comment.updated_at).fromNow()}` :
           `posted ${moment(comment.updated_at).fromNow()}`
         }
         action={
-          user.id === comment.user.id && 
+          user.id === comment.user.id &&
           <>
-          <IconButton 
+          <IconButton
             aria-label="settings"
             onClick={() => setIsEditing(previous => !previous)}
           >
             <EditOutlinedIcon />
           </IconButton>
-          <IconButton 
+          <IconButton
             aria-label="settings"
             onClick={deleteComment}
           >
@@ -598,6 +593,7 @@ const SentiRedditComment = ({ comment, token, redditId, setPostWithComments }) =
   )
 }
 ```
+
 The UserContext is leveraged to ensure that the edit and delete functions are only available on comments belonging to the actual current user, i.e. a user cannot edit/delete another user's comment. In addition, the StyleContext (which determines the emotional UI) is passed down to the input so that it too reflects the negativity/positivity of the current user.
 
 ## Responsibilities
@@ -618,7 +614,6 @@ In addition, the styling of our register and login forms appeared to be broken. 
 
 While pair programming is often said to be slower than solo development, it led to a much deeper understanding of the code and much less debugging. An interesting trade-off and we were pleased to have maintained our commitment to pair programming throughout.
 
-
 ## Key Learnings
 
 The big takeaway for me was the limitations of working with third-party libraries. I have always preferred to build things from scratch, but time constraints can lead you to think that a third-party library is a better option. Certainly, this can be the case: react-markdown being a prime example—we had markdown text that we wanted to render with formatting, which it did with zero customisation required and, more importantly, without undesired side effects. The Google Natural Language API Python library, however, proved more trouble than it was worth, primarily because it was not possible to go behind the scenes and debug.
@@ -627,11 +622,9 @@ Furthermore, when working with a larger library, such as Material UI, it is impo
 
 At a functional level, this was excellent experience with Material UI and styled-components, particularly learning how to implement overrides and custom themes.
 
-
 ## Conclusions
 
 Perhaps the most interesting conclusion was regarding the current limitations of Artificial Intelligence in the area of language analysis. Subtext, sarcasm, and subtlety could easily tip the sentiment analysis in the wrong direction—at present, it is something of a blunt tool. That being said, the analysis was, broadly speaking, quite reliable. During testing, we could be fairly certain that a story about Donald Trump or COVID-19 would contain negative sentiment and that a story about puppies or kittens would contain positive sentiment. This is an area I will be watching with great interest as it evolves.
-
 
 ## Future
 
@@ -640,7 +633,5 @@ Perhaps the most interesting conclusion was regarding the current limitations of
 
 ## Bugs
 
-- Entering text into the search field on Home.js renders changes in the story avatars.
-- Video background jumping to full screen on mobile – fixed: added `playsinline` to `video` tag
-
-
+- Entering text into the search field on Home.js renders changes in the story avatars. - FIXED used memoization hook `useMemo` to cache image and only reload when post changes.
+- Video background jumping to full screen on mobile – FIXED: added `playsinline` to `video` tag
