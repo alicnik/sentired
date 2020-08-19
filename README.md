@@ -115,7 +115,7 @@ During my reading into Flask SQLAlchemy and Marshmallow, I came across an intere
 
 Perhaps the most thorough logic in the back end was this controller, which checks for the article in our own database, fetching it from Reddit if it is not found.
 
-```
+``` python
 @router.route('/posts/<reddit_id>', methods=['GET'])
 @secure_route
 def get_one(reddit_id):
@@ -184,7 +184,7 @@ The response time for the Reddit API could be over 2 seconds, so we determined t
 
 Originally, I used the Google Natural Language Python library for a function to obtain the sentiment score of a given text. After some challenges (_infra_ [Challenges](https://github.com/alicnik/sentired#challenges) for more details) with the library, I rewrote the function using the inbuilt Python requests library.
 
-```
+``` python
 api_key = os.environ['GOOGLE_API_KEY']
 
 def fetch_sentiment(text):
@@ -211,7 +211,7 @@ This function could be reused in our controllers to facilitate obtaining the rel
 
 As mentioned above, this separated from the Reddit post fetch due to the time it took for both responses to come and the impact this would have on UX.
 
-```
+``` python
 @router.route('/posts/<reddit_id>/sentiment', methods=['GET'])
 @secure_route
 def analyse_post_and_comments(reddit_id):
@@ -267,7 +267,7 @@ The front end was developed using React, Material UI, styled-components and reac
 
 An example of the marriage of various libraries is perhaps best demonstrated in the Register component, which is a React functional component that uses Material UI for the text fields as well as styled components for the form container. The form logic itself is controlled via react-hook-forms using a Yup validation schema.
 
-```
+``` javascript
 const schema = Yup.object().shape({
   username: Yup.string().required('Please enter a username'),
   email: Yup.string().email('Please enter a valid email address').required('Please enter your email'),
@@ -367,7 +367,7 @@ const Register = () => {
 
 It also depends upon custom overrides of the Material UI Theme which are contained in FormContext.js:
 
-```
+``` javascript
 import React from 'react'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
@@ -435,7 +435,7 @@ export const FormMaterialProvider = ({ children }) => {
 
 Since the overrides for the form were designed to allow for used of mix-blend-mode CSS property, a second set of custom overrides was required for the rest of the site, resulting in nested override providers in our App.js:
 
-```
+``` javascript
 <FormMaterialProvider>
 	<Route exact path="/register" component={Register} />
 	<Route exact path="/login" component={Login} />
@@ -451,7 +451,7 @@ Since the overrides for the form were designed to allow for used of mix-blend-mo
 
 Since the response times from the Reddit API varied and we did not want this to impact the UX, we implemented loading placeholders using the Material UI skeleton component:
 
-```
+``` javascript
 import React from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -481,7 +481,7 @@ The skeleton layout was designed to emulate the layout of the populated cards. O
 
 The post component is the beating heart of the app and is where language sentiment analysis is performed. To minimise UX interference, API calls are chained:
 
-```
+``` javascript
 useEffect(() => {
     axios.get(`/api/posts/${redditId}`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(initialResponse => {
@@ -518,7 +518,7 @@ The initial post is then rendered along with the comments on that post. Each com
 
 Additional CRUD functionality is contained at the bottom of the Post.js component where registered users of SentiRed are able to leave comments, which are rendered immediately and can be edited/deleted inline. I was keen for UX flow that creating/editing/deleting a comment should not take the user to another page as this disrupts the experience.
 
-```
+``` javascript
 const SentiRedditComment = ({ comment, token, redditId, setPostWithComments }) => {
 
   const [updatedComment, setUpdatedComment] = useState(comment.body)
