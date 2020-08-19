@@ -91,7 +91,7 @@ We devoted a good portion of our initial planning to developing our models and r
 
 Since the sentiment analysis was the major component of the app, we concluded it merited its own model. This would also adhere to the Single Source of Truth approach and give us better insight into SQL relationships.
 
-```
+``` python
 class Sentiment(db.Model, BaseModel):
 
     __tablename__ = 'sentiments'
